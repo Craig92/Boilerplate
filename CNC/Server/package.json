@@ -1,0 +1,43 @@
+{
+  "name": "cnc-server",
+  "version": "0.0.1",
+  "description": "Command and Control server (HS-Mannheim - INT/WAW)",
+  "author": "Cookie Engineer <@cookiengineer>",
+  "license": "GPL-3.0",
+  "contributors": [
+    {
+      "name": "Cookie Engineer",
+      "email": "cookiengineer@users.no-reply.github.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/INT-WAW/Boilerplate.git"
+  },
+  "bin": {
+    "cnc-server": "./bin/cnc-server.js"
+  },
+  "scripts": {
+    "start": "node --harmony ./bin/cnc-server.js 8080",
+    "build": "babel src -d lib"
+  },
+  "main": "./lib/cnc-server.js",
+  "bugs": {
+    "url": "https://github.com/INT-WAW/Boilerplate/issues"
+  },
+  "keywords": [
+    "botnet",
+    "command",
+    "control",
+    "bot"
+  ],
+  "dependencies": {
+    "babel-polyfill": "^6.7.2",
+    "koa": "next"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.5",
+    "babel-plugin-transform-async-to-generator": "^6.7.0",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.5.2"
+  }
+}
