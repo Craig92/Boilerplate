@@ -1,0 +1,71 @@
+#header-name{
+ position : fixed;
+ width : 100%;
+ height : 10%;
+ left : 0;
+ top : 0;
+ background-color : black;
+ color : white;
+}
+
+main {
+ float : right;
+}
+
+a {
+  padding: 0;
+  color : white;
+}
+
+a:focus{
+  color: yellow;
+}
+
+a:hover{
+  color: orange;
+}
+
+a:active{
+  color: red;
+}
+
+#sidebar-menu{
+  position : fixed;
+  float : left;
+  height : 100%;
+  top: 10%;
+  left : 0;
+  width: 20%;
+  background: blue;
+  color : white;
+}
+
+#content{
+  position : absolute;
+  float : left;
+  left : 25%;
+  top : 10%;
+  color : black;
+  background: yellow;
+}
+
+
+td, th {
+ border: 1px solid black;
+}
+
+tbody tr:hover {
+    background: yellow;
+    color: black;
+}
+
+#group-footer{
+ position : fixed;
+ float : bottom;
+ height: 10%;
+ width: 100%;
+ left: 0;
+ bottom: 0;
+ background-color: black;
+ color : white;
+}
