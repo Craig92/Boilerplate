@@ -55,6 +55,22 @@ a:active{
   overflow: auto;
 }
 
+.focus:target{
+  position : fixed;
+  float : right;
+  padding : 2.5%;
+  left : 20%;
+  top : 10%;
+  bottom: 10%;
+  color : black;
+  overflow: auto;
+  display : inherit;
+}
+
+.focus{
+  display: none;
+}
+
 #status {
 
 }
@@ -64,7 +80,7 @@ a:active{
 }
 
 #table{
-  
+
 }
 
 
