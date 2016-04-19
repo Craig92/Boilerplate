@@ -105,50 +105,44 @@ tbody tr:hover {
  color : white;
 }
 
-.round-toggle-button {
-  position: absolute;
-  margin-left: -9999px;
-  visibility: hidden;
+.myButton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #f5978e;
+	box-shadow:inset 0px 1px 0px 0px #f5978e;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f24537), color-stop(1, #c62d1f));
+	background:-moz-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-webkit-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-o-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:-ms-linear-gradient(top, #f24537 5%, #c62d1f 100%);
+	background:linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f24537', endColorstr='#c62d1f',GradientType=0);
+	background-color:#f24537;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
 }
-.round-toggle-button + label {
-  display: block;
-  position: relative;
-  cursor: pointer;
-  outline: none;
-  user-select: none;
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #c62d1f), color-stop(1, #f24537));
+	background:-moz-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-webkit-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-o-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:-ms-linear-gradient(top, #c62d1f 5%, #f24537 100%);
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#c62d1f', endColorstr='#f24537',GradientType=0);
+	background-color:#c62d1f;
 }
-input.round-toggle-button + label {
-  padding: 2px;
-  width: 60px;
-  height: 30px;
-  background-color: grey;
-  border-radius: 60px;
+.myButton:active {
+	position:relative;
+	top:1px;
 }
-input.round-toggle-button + label:before,
-input.round-toggle-button+ label:after {
-  display: block;
-  position: absolute;
-  top: 1px;
-  left: 1px;
-  bottom: 1px;
-  content: "";
-}
-input.round-toggle-button + label:before {
-  right: 1px;
-  background-color: white;
-  border-radius: 60px;
-  transition: background 0.4s;
-}
-input.round-toggle-button + label:after {
-  width: 30px;
-  background-color: blue;
-  border-radius: 100%;
-  box-shadow: 0 2px 5px black;
-  transition: margin 0.4s;
-}
-input.round-toggle-button:checked + label:before {
-  background-color: yellow;
-}
-input.round-toggle-button:checked + label:after {
-  margin-left: 35px;
-}
+
