@@ -37,11 +37,10 @@
 <section id="status" class="focus">
 <h2 >Status</h2>
 <p>Fehlende Funktionalitäten für Meilenstein 1:</p>
-<p>- Inhalte abrufen von API</p>
 <p>- Automatische Aktualierung der Tabelle</p>
 <p>- Automatisches nach oben verschieben der Sections beim Klicken des Menupunkts</p>
 <p>Fehlerhafte Funktionalitäten:</p>
-<p>- keine</p>
+<p>- Buttons ohne Funktion</p>
 <br>
 </section>
 
@@ -57,8 +56,81 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 </section>
 
 <section id="table" class="focus">
+
+  <script>
+  var initialize = function() {
+
+	var xhr1    = new XMLHttpRequest();
+	var content = document.querySelector('table#status tbody');
+
+
+	xhr1.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
+	xhr1.responseType = 'json';
+
+	xhr1.onload = function() {
+
+		var data = xhr1.response;
+		if (data instanceof Array) {
+
+			var code = '';
+
+			for (var d = 0, dl = data.length; d < dl; d++) {
+
+				var entry = data[d];
+
+				code += '<tr>';
+				code += '<td>' + entry.id + '</td>';
+				code += '<td>' + entry.ip + '</td>';
+				code += '<td>' + entry.task + '</td>';
+				code += '<td>' + entry.workload + '</td>';
+        code += '<td>' + '<input class="round-toggle-button" type="checkbox"> <label for="button-toggle-1"></label> </input> ' +'</td>';
+				code += '</tr>';
+
+			}
+
+			content.innerHTML = code;
+
+		} else {
+
+			content.innerHTML = 'Failed to load :(';
+
+		}
+
+	};
+
+	xhr1.send(null);
+
+};
+  </script>
+
 <h2>Tabelle</h2>
 
+<table id="status">
+  <colgroup>
+    <col width="10%">
+    <col width="60%">
+    <col width="10%">
+  <col width="10%">
+  <col width="10%">
+  </colgroup>
+	<thead>
+	<tr>
+		<th>ID</th>
+		<th>IP</th>
+		<th>Task</th>
+		<th>Workload</th>
+    <th>Button</th>
+	</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td colspan="5">kein Inhalt vorhanden</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!--
     <table class="sortable" id="status-overview" , cellpadding="10">
 	  <colgroup>
 	    <col width="25%">
@@ -121,6 +193,8 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
       </tbody>
 
     </table>
+-->
+    <button onclick="initialize()">Daten von API laden</button>
 </section>
 <br>
 </section>
