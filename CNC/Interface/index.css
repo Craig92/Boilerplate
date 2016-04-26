@@ -54,35 +54,39 @@ a:active{
   color : black;
   overflow: auto;
 }
-
-.focus:target{
-  position : fixed;
-  float : right;
-  padding : 2.5%;
-  left : 20%;
-  top : 10%;
-  bottom: 10%;
-  color : black;
-  overflow: auto;
-  display : inherit;
-}
-
-.focus{
-  display: none;
+ 
+section {
+  transition: all 3s ease;
 }
 
 #status {
+  	position: relative;
+   
+}
+
+#task {
+  	position: relative;
+}
+ 
+#table {
+  	position: relative;
 
 }
 
-#tasks{
-
+#status:target{
+  position : absolute;
+  transform: translate(0, 0);
 }
 
-#table{
-
+#task:target{
+  position : absolute;
+  transform: translate(0, 0);
 }
 
+#table:target{
+  position : absolute;
+  transform: translate(0, 0);
+}
 
 td, th {
  border: 1px solid black;
