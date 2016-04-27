@@ -31,7 +31,6 @@
     <menu>
       <li><a href="#status">Status</a></li>
       <li><a href="#tasks">Auftrag</a></li>
-      <li><a href="#table">Tabelle</a></li>
     </menu>
 </aside>
 
@@ -42,15 +41,17 @@
 <h2 >Status</h2>
 <p>Fehlende Funktionalitäten für Meilenstein 1:</p>
 <p>- Automatisches nach oben verschieben der Sections beim Klicken des Menupunkts</p>
-<p>Fehlerhafte Funktionalitäten:</p>
+<p>Fehlende Funktionalität für Meilenstein 2:</p>
+<p>- Auftrage-Formular als JSON</p>
+<p>- Status Tabelle mit Start/Stop Button mithilfe von PostIntegrationStatus</p>
+<p>- Auftrags Tabelle mit Laden und Senden von Daten</p>
 <br>
-</section>
 
-<section id="table" class="focus">
+<h2>Statustabelle</h2>
 
-<h2>Tabelle</h2>
+<p>Hier ist die Statustabelle mit den aktuellen Auftragen, die mithilfe der Buttons aktiviert bzw. deaktiviert werden können.</p>
 
-<table id="status" class="sortable">
+<table id="status-table" class="sortable">
   <colgroup>
     <col width="10%">
     <col width="60%">
@@ -69,24 +70,34 @@
 	</thead>
 	<tbody>
 		<tr>
-			<td colspan="5">kein Inhalt vorhanden</td>
+			<td colspan="5">Kein Inhalt vorhanden. Drücken Sie bitte auf den "Daten laden"-Button.</td>
 		</tr>
 	</tbody>
 </table>
 
-    <button onclick="initialize()">Daten von API laden</button>
+    <button onclick="initialize()">Daten von Server laden</button>
     
 </section>
 
 <section id="tasks" class="focus">
-<h2>Auftrage</h2>
-<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-<br>
-<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-<br>
-<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-<br>
-<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+<h2>Auftrageformular</h2>
+<p>Hier befindet sich das Formular um neue Aufträge hinzuzufügen.</p>
+
+<form>
+    <label id="id" required><label for="id">ID</label> 
+    <input id="id">
+    <label id="type" required><label for="type">Type</label>
+    <input id="type">
+    <label id="data" required><label for="data">input/output</label>
+    <input id="data">
+
+    <button type="reset">Eingaben zurücksetzen</button>
+    <button type="submit">Eingaben absenden</button>
+  </form>
+  
+<h2>Auftragstabelle</h2>
+<p>Hier befindet sich das auftragstabelle um neue Aufträge hinzuzufügen und vorhandene Aufträge bearbeiten bzw. löschen zu können.</p>
+<p> TODO </p>
 <br>
 </section>
 
