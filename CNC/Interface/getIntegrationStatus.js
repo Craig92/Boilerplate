@@ -1,7 +1,7 @@
 var initialize = function() {
 
 	var xhr1    = new XMLHttpRequest();
-	var content = document.querySelector('table#status tbody');
+	var content = document.querySelector('table#status-table tbody');
 
 
 	xhr1.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
@@ -23,7 +23,7 @@ var initialize = function() {
 				code += '<td>' + entry.ip + '</td>';
 				code += '<td>' + entry.task + '</td>';
 				code += '<td>' + entry.workload + '</td>';
-        code += '<td>' + '<a href="#" class="myButton">Start/Stop</a>' +'</td>';
+        code += '<td>' + '<button type="button" id="button'+d+'+">Start</button>' +'</td>';
 				code += '</tr>';
 			}
 
