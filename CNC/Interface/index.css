@@ -54,38 +54,21 @@ a:active{
   color : black;
   overflow: auto;
 }
- 
-section {
-  transition: all 3s ease;
+
+.focus:target{
+  position : fixed;
+  float : right;
+  padding : 2.5%;
+  left : 20%;
+  top : 10%;
+  bottom: 10%;
+  color : black;
+  overflow: auto;
+  display : inherit;
 }
 
-#status {
-  	position: relative;
-   
-}
-
-#task {
-  	position: relative;
-}
- 
-#table {
-  	position: relative;
-
-}
-
-#status:target{
-  position : absolute;
-  transform: translate(0, 0);
-}
-
-#task:target{
-  position : absolute;
-  transform: translate(0, 0);
-}
-
-#table:target{
-  position : absolute;
-  transform: translate(0, 0);
+.focus{
+  display: none;
 }
 
 td, th {

@@ -11,7 +11,10 @@
     <link rel="stylesheet" type="text/css" href="./index.css">
     <link rel="stylesheet" media="print" href="./index.css">
     <script src="./sorttable.js"></script>
-    <script src="./getIntegrationToServer.js"></script>
+    <script src="./getIntegrationStatus.js"></script>
+    <script src="./getIntegrationTasks.js"></script>
+    <script src="./postIntegrationStatus.js"></script>
+    <script src="./postIntegrationTasks.js"></script>
     <title> CNC Interface JADT-Team </title>
 
   </head>
@@ -47,7 +50,7 @@
 
 <h2>Tabelle</h2>
 
-<table id="status">
+<table id="status" class="sortable">
   <colgroup>
     <col width="10%">
     <col width="60%">
