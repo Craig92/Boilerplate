@@ -23,7 +23,7 @@ var initializeStatus = function() {
 				code += '<td>' + entry.ip + '</td>';
 				code += '<td>' + entry.task + '</td>';
 				code += '<td>' + entry.workload + '</td>';
-        code += '<td>' + '<button type="button" id="button'+d+'+">Start</button>' +'</td>';
+				code += '<td>' + '<label class="switch'+d+'+"> <input class="switch-input" type="checkbox" /> <span class="switch-label" data-on="Start" data-off="Stopp"></span> <span class="switch-handle"></span> </label>' +'</td>';
 				code += '</tr>';
 			}
 
