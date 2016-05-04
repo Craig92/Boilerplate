@@ -1,4 +1,4 @@
-var initialize = function() {
+var initializeStatus = function() {
 
 	var xhr1    = new XMLHttpRequest();
 	var content = document.querySelector('table#status-table tbody');

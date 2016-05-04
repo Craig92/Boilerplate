@@ -22,10 +22,9 @@ var action = function() {
     var data = '';
 
 
-    var id = //ID der Tabellenzeile holen;
+    var id; //ID der Tabellenzeile holen;
     var action = //Action (start oder stop) von der Tabellenzeile holen;
-    
-    data =//id und action an data senden;
+    data;//id und action an data senden;
  
     xhr1.send(data);
 };
