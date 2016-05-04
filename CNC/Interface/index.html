@@ -42,9 +42,10 @@
 <p>Fehlende Funktionalitäten für Meilenstein 1:</p>
 <p>- Automatisches nach oben verschieben der Sections beim Klicken des Menupunkts</p>
 <p>Fehlende Funktionalität für Meilenstein 2:</p>
-<p>- Auftrage-Formular um Aufrtäge hinzuzufügen</p>
-<p>- Status Tabelle mit Start/Stop Button Funktionalität</p>
-<p>- Auftrags Tabelle mit Laden Daten</p>
+<p>- Auftragsformular: POST-Request implementieren</p>
+<p>- Status-Tabelle: POST-Request für Start/Stop-Button implementieren</p>
+<p>- Tokenunterstützung für POST-Request implementieren</p>
+<p>- optische Anpassungen in der css-Datei für das Formular</p>
 <br>
 
 <h2>Statustabelle</h2>
@@ -115,16 +116,17 @@
 <h2>Auftrageformular</h2>
 <p>Hier befindet sich das Formular um neue Aufträge hinzuzufügen.</p>
 
-<form id="task-form">
-    <label id="id" required><label for="id">ID</label> 
-    <input id="id">
-    <label id="type" required><label for="type">Type</label>
-    <input id="type">
-    <label id="data" required><label for="data">Data</label>
-    <input id="data">
-
+<form id="task-form" methode="get">
+    <label for ="input">Input</label>
+    <input id="input" type="text" name="input" />
+    <label for="type">Type</label>
+    <select id="type" name="type" size="3">
+      <option>hash-md5</option>
+      <option>hash-sha256</option>
+      <option>crack-md5</option>
+    </select>
     <button type="reset">Eingaben zurücksetzen</button>
-    <button type="submit">Eingaben absenden</button>
+    <button id="task-formular" onclick="sendTask()" type="submit">Eingaben absenden</button>
   </form>
   
 </section>
