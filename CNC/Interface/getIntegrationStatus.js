@@ -23,11 +23,27 @@ var initializeStatus = function() {
 				code += '<td>' + entry.ip + '</td>';
 				code += '<td>' + entry.task + '</td>';
 				code += '<td>' + entry.workload + '</td>';
-				code += '<td>' + '<label class="switch'+d+'+"> <input class="switch-input" type="checkbox" /> <span class="switch-label" data-on="Start" data-off="Stopp"></span> <span class="switch-handle"></span> </label>' +'</td>';
+				code += '<td><button class="status-button" id="' + entry.id + '" onClick="toggleButton(this.id);"></button></td>';
 				code += '</tr>';
 			}
 
 			content.innerHTML = code;
+			
+						for (var d = 0, dl = data.length; d < dl; d++) { 
+ 				var entry = data[d]; 
+ 				var buttonID = entry.id; 
+ 				if(entry.workload === 0) { 
+ 					document.getElementById(buttonID).innerHTML = "Start"; 
+ 					document.getElementById(buttonID).style.background = "blue";
+					document.getElementById(buttonID).style.color="white"; 
+ 				} else { 
+ 					document.getElementById(buttonID).innerHTML = "Stop"; 
+					document.getElementById(buttonID).style.background = "yellow"; 
+					document.getElementById(buttonID).style.color="black"; 
+ 				} 
+ 				 
+		} 
+
 
 		} else {
 

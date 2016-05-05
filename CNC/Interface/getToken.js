@@ -1,9 +1,27 @@
+var getToken = function() {
 
+	var xhr   = new XMLHttpRequest();
+    
+    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Pfad');
+	xhr.responseType = 'json';
+    
+	xhr.setRequestHeader('Token','48ce10edb6c3377e7771370a4ab3569d');
 
-var xhr = new XMLhttprequest();
+    
+    xhr.onload = funktion() {
 
-xhr.setRequestHeader('Token','48ce10edb6c3377e7771370a4ab3569d');
+        var data = xhr.respnose;
+        
+        if (data != null){
+           
+           if (data instanceof Array){
+               console.log(data.id);
+               var id = data.id;
+           }
+		}
 
-xhr.onload = funktion() {
+	};
 
-var data = xhr.response;
+	xhr.send(null);
+
+};

@@ -1,30 +1,20 @@
-/*
- Start/Stop Button mit  /api/Status  POST Integration
-•Anwendung des  token  Headers
-•Senden der Daten mit  XHR Version 2 
-*/
-
-var button = document.getElementById('button'+d+'');
-
-button.addEventListener('click', stopTask);
-
-function stopTask(event){
-    event.target.innerHTML='Stop';
-}
-
-// 
-
-var action = function() {
-
-	var xhr1    = new XMLHttpRequest();
-	xhr1.responseType = 'json';
+var sendStatus = function(id, status) {
     
-    var data = '';
+var xhr = new XMLHttpRequest();
 
+xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Status');
 
-    var id; //ID der Tabellenzeile holen;
-    var action = //Action (start oder stop) von der Tabellenzeile holen;
-    data;//id und action an data senden;
- 
-    xhr1.send(data);
+xhr.responseType = 'json';
+xhr.responseHeader('Content-Type', 'application/json');
+xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
+
+console.log(status);
+
+xhr.onload = function() {
+
+    var data = { "id" : parseInt(id), "status" : status};
+    
+   xhr.send(JSON.stringify(data));
+   return true;
+};
 };
