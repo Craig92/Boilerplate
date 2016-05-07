@@ -70,5 +70,6 @@ var sendTask = function(id, type, dataInput) {
     
 	};
     xhr.send(JSON.stringify(data));
+	initializeTask();
 	return true; 
 }; 

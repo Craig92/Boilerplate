@@ -75,9 +75,11 @@ function toggleButton(buttonID, status) {
             document.getElementById(buttonID).innerHTML = "Stop"; 
             document.getElementById(buttonID).style.background = "yellow";
 			document.getElementById(buttonID).style.color="black";  
-            alert("Der Status wurde auf 'Stop' geändert!"); 
+            alert("Der Status wurde auf 'Stop' geändert!");
+			initializeStatus(); 
         } else { 
            alert("Ein Fehler beim Ändern des Status ist aufgetreten!"); 
+		   initializeStatus();
         }
          
     } else { 
@@ -87,8 +89,10 @@ function toggleButton(buttonID, status) {
             document.getElementById(buttonID).style.background = "blue"; 
 			document.getElementById(buttonID).style.color="white"; 
 			alert("Der Status wurde auf 'Start' geändert!"); 
+			initializeStatus();
         } else { 
-            alert("Ein Fehler beim Ändern des Status ist aufgetreten!"); 
+            alert("Ein Fehler beim Ändern des Status ist aufgetreten!");
+			initializeStatus(); 
         } 
     } 
     
