@@ -1,118 +1,117 @@
 /**
  * Holt die Status Informationen von BotnetServer und fügt die Daten in eine Tabelle ein.
  */
-
 var initializeStatus = function() {
 
-	var xhr    = new XMLHttpRequest();
-	var content = document.querySelector('table#status-table tbody');
+    var xhr = new XMLHttpRequest();
+    var content = document.querySelector('table#status-table tbody');
 
 
-	xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
-	xhr.responseType = 'json';
+    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
+    xhr.responseType = 'json';
 
-	xhr.onload = function() {
+    xhr.onload = function() {
 
-		var data = xhr.response;
-		if (data instanceof Array) {
+        var data = xhr.response;
+        if (data instanceof Array) {
 
-			var code = '';
+            var code = '';
 
-			for (var d = 0, dl = data.length; d < dl; d++) {
+            for (var d = 0, dl = data.length; d < dl; d++) {
 
-				var entry = data[d];
+                var entry = data[d];
 
-				code += '<tr>';
-				code += '<td>' + entry.id + '</td>';
-				code += '<td>' + entry.ip + '</td>';
-				code += '<td>' + entry.task + '</td>';
-				code += '<td>' + entry.workload + '</td>';
-                
-                if (entry.workload === 0){
-					code += '<td><button class="status-button" id="' + entry.id + '" onClick="toggleButton('+ entry.id +', true);"></button></td>';
+                code += '<tr>';
+                code += '<td>' + entry.id + '</td>';
+                code += '<td>' + entry.ip + '</td>';
+                code += '<td>' + entry.task + '</td>';
+                code += '<td>' + entry.workload + '</td>';
+
+                if (entry.workload === 0) {
+                    code += '<td><button class="status-button" id="' + entry.id + '" onClick="toggleButton(' + entry.id + ', true);"></button></td>';
                 } else {
-                    code += '<td><button class="status-button" id="' + entry.id + '" onClick="toggleButton('+ entry.id +', false);"></button></td>';
+                    code += '<td><button class="status-button" id="' + entry.id + '" onClick="toggleButton(' + entry.id + ', false);"></button></td>';
                 }
-				
+
                 code += '</tr>';
-			}
+            }
 
-			content.innerHTML = code;
-			
-				for (var d = 0, dl = data.length; d < dl; d++) { 
- 				    var entry = data[d]; 
- 				    var buttonID = entry.id; 
-                     
- 				    if(entry.workload === 0) { 
- 					    document.getElementById(buttonID).innerHTML = "Start"; 
- 					    document.getElementById(buttonID).style.background = "blue";
-					    document.getElementById(buttonID).style.color="white"; 
- 				    } else { 
- 					    document.getElementById(buttonID).innerHTML = "Stop"; 
-					    document.getElementById(buttonID).style.background = "yellow"; 
-					    document.getElementById(buttonID).style.color="black"; 
- 				    } 
- 				 
-		        } 
+            content.innerHTML = code;
 
-		} else {
+            for (var d = 0, dl = data.length; d < dl; d++) {
+                var entry = data[d];
+                var buttonID = entry.id;
 
-			content.innerHTML = 'Failed to load :(';
+                if (entry.workload === 0) {
+                    document.getElementById(buttonID).innerHTML = "Start";
+                    document.getElementById(buttonID).style.background = "blue";
+                    document.getElementById(buttonID).style.color = "white";
+                } else {
+                    document.getElementById(buttonID).innerHTML = "Stop";
+                    document.getElementById(buttonID).style.background = "yellow";
+                    document.getElementById(buttonID).style.color = "black";
+                }
 
-		}
+            }
 
-	};
+        } else {
 
-	xhr.send(null);
+            content.innerHTML = 'Failed to load :(';
+
+        }
+
+    };
+
+    xhr.send(null);
 
 };
 
-function toggleButton(buttonID, status) {         
-        
-    if (document.getElementById(buttonID).innerHTML == "Start") { 
-        
-        if(sendStatus(buttonID, true)) { 
-            document.getElementById(buttonID).innerHTML = "Stop"; 
+function toggleButton(buttonID, status) {
+
+    if (document.getElementById(buttonID).innerHTML == "Start") {
+
+        if (sendStatus(buttonID, true)) {
+            document.getElementById(buttonID).innerHTML = "Stop";
             document.getElementById(buttonID).style.background = "yellow";
-			document.getElementById(buttonID).style.color="black";  
+            document.getElementById(buttonID).style.color = "black";
             alert("Der Status wurde auf 'Stop' geändert!");
-			initializeStatus(); 
-        } else { 
-           alert("Ein Fehler beim Ändern des Status ist aufgetreten!"); 
-		   initializeStatus();
-        }
-         
-    } else { 
-        
-        if(sendStatus(buttonID, false)) { 
-            document.getElementById(buttonID).innerHTML = "Start"; 
-            document.getElementById(buttonID).style.background = "blue"; 
-			document.getElementById(buttonID).style.color="white"; 
-			alert("Der Status wurde auf 'Start' geändert!"); 
-			initializeStatus();
-        } else { 
+            initializeStatus();
+        } else {
             alert("Ein Fehler beim Ändern des Status ist aufgetreten!");
-			initializeStatus(); 
-        } 
-    } 
-    
- };
+            initializeStatus();
+        }
+
+    } else {
+
+        if (sendStatus(buttonID, false)) {
+            document.getElementById(buttonID).innerHTML = "Start";
+            document.getElementById(buttonID).style.background = "blue";
+            document.getElementById(buttonID).style.color = "white";
+            alert("Der Status wurde auf 'Start' geändert!");
+            initializeStatus();
+        } else {
+            alert("Ein Fehler beim Ändern des Status ist aufgetreten!");
+            initializeStatus();
+        }
+    }
+
+};
 
 
-var sendStatus = function(id, status) { 
-	
-	var xhr = new XMLHttpRequest(); 
+var sendStatus = function(id, status) {
 
-	xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Status'); 
-	xhr.responseType = 'json'; 
-	xhr.setRequestHeader('Content-Type', 'application/json'); 
-	xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d'); 
- 
-	var data = {  
-		"id": parseInt(id, 10), 
-		"status": status 
-	}; 
- 
-	xhr.send(JSON.stringify(data)); 
-	return true; 
-}; 
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Status');
+    xhr.responseType = 'json';
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
+
+    var data = {
+        "id": parseInt(id, 10),
+        "status": status
+    };
+
+    xhr.send(JSON.stringify(data));
+    return true;
+};

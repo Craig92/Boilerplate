@@ -1,16 +1,15 @@
-function refreshPage(){
-    
-   var page = window.location.hash; 
- 
-    if(page === "#tasks"){ 
-        initializeTask(); 
-    } else if (page === "#status") { 
-        initializeStatus(); 
-    } 
-    
+function refreshPage() {
+
+    var page = window.location.hash;
+
+    if (page === "#tasks") {
+        initializeTask();
+    } else if (page === "#status") {
+        initializeStatus();
+    }
+
 };
 
-
 function autoRefresh() {
-    setInterval(refreshPage, 6000);   
+    setInterval(refreshPage, 6000);
 }
