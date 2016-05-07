@@ -11,10 +11,8 @@
     <link rel="stylesheet" type="text/css" href="./index.css">
     <link rel="stylesheet" media="print" href="./index.css">
     <script src="./sorttable.js"></script>
-    <script src="./getIntegrationStatus.js"></script>
-    <script src="./getIntegrationTasks.js"></script>
-    <script src="./postIntegrationStatus.js"></script>
-    <script src="./postIntegrationTasks.js"></script>
+    <script src="./statusTableFunctionallity.js"></script>
+    <script src="./taskTableFunctionallity.js"></script>
     <title> CNC Interface JADT-Team </title>
 
   </head>
@@ -38,13 +36,11 @@
 <section id="main-content">
 
 <section id="status" class="focus">
-<h1 >Status</h1>
+<h2>Status</h1>
 <p>Fehlende Funktionalitäten für Meilenstein 1:</p>
 <p>- Automatisches nach oben verschieben der Sections beim Klicken des Menupunkts</p>
 <p>Fehlende Funktionalität für Meilenstein 2:</p>
 <p>- Auftragsformular: POST-Request implementieren</p>
-<p>- Status-Tabelle: POST-Request für Start/Stop-Button implementieren</p>
-<p>- Tokenunterstützung für POST-Request implementieren</p>
 <p>- optische Anpassungen in der css-Datei für das Formular</p>
 <br>
 
@@ -82,7 +78,7 @@
 
 <section id="tasks" class="focus">
 
-<h1>Auftrag</h1>
+<h2>Auftrag</h2>
 
 <h2>Auftragstabelle</h2>
 
@@ -117,8 +113,10 @@
 <p>Hier befindet sich das Formular um neue Aufträge hinzuzufügen.</p>
 
 <form id="task-form" methode="get">
-    <label for ="input">Input</label>
-    <input id="input" type="text" name="input" />
+    <label for = "id">ID</label>
+    <input id ="id" type="text" name="id" />
+    <label for ="data">Input</label>
+    <input id ="data" type="text" name="data" />
     <label for="type">Type</label>
     <select id="type" name="type" size="1">
       <option>hash-md5</option>
@@ -126,7 +124,7 @@
       <option>crack-md5</option>
     </select>
     <button type="reset">Eingaben zurücksetzen</button>
-    <button id="task-formular" onclick="sendTask()" type="submit">Eingaben absenden</button>
+    <button id="task-formular" onclick="sendTask(document.getElementById('id').value, document.getElementById('type').value,document.getElementById('data').value)" type="submit">Eingaben absenden</button>
   </form>
   
 </section>
