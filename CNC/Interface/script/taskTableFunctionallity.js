@@ -48,16 +48,28 @@ var sendTask = function(id, type, dataInput) {
 
     var xhr = new XMLHttpRequest();
 
-    alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' an den Server übermittelt.");
+    
 
     xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Tasks');
     xhr.responseType = 'json';
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
 
-    var data;
 
-    //TODO Was ist hier falsch?
+    xhr.onload = function(){
+        if (this.status == 200){
+            var entry = xhr.response;
+            if (entry !== null && entry.message != "OK"){
+                alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' NICHT an den Server übermittelt.");
+            } else {
+                alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' an den Server übermittelt.");
+            }
+        } else {
+            alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' NICHT an den Server übermittelt.");
+        }
+    };
+
+    var data;
 
     data = {
         "id": parseInt(id, 10),
@@ -70,5 +82,5 @@ var sendTask = function(id, type, dataInput) {
     };
     xhr.send(JSON.stringify(data));
     initializeTask();
-    return true;
+    
 };
