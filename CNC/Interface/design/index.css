@@ -83,3 +83,27 @@ tbody tr:hover {
 	background-color: black;
 	color : white;
 }
+
+form {
+	width: auto;
+	
+	border: 1px solid grey;
+}
+
+input {
+	margin: 0 0 1% 10%;
+}
+
+label {
+	float: left;
+	text-align: right;
+	width: 10%;
+}
+
+#type{
+	margin: 0 0 1% 10%;
+}
+
+#send-formular-button, #reset-formular-button {
+	margin: 0 0 1% 20%;
+}

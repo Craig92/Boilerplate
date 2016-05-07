@@ -26,8 +26,8 @@
 <aside id="sidebar-menu">
     <h2>Menü</h2>
     <menu>
-      <li><a href="#status" onclick="refreshPage()" >Status</a></li>
-      <li><a href="#tasks" onclick="refreshPage()" >Auftrag</a></li>
+      <li><a href="#status" >Status</a></li>
+      <li><a href="#tasks" >Auftrag</a></li>
     </menu>
 </aside>
 
@@ -68,7 +68,7 @@
 </table>
 
     <button id="status-load-button" onclick="initializeStatus()">Daten von Server laden</button>
-    
+         
 </section>
 
 <section id="tasks" class="focus">
@@ -80,19 +80,24 @@
 <h2>Auftrageformular</h2>
 <p>Hier befindet sich das Formular um neue Aufträge hinzuzufügen.</p>
 
-<form id="task-form" methode="get">
-    <label for ="id">Input</label>
+<form id="task-formular">
+    <br>
+    <label for ="id">ID</label>
     <input type="text" id ="id">
+    <br>
     <label for ="dataInput">Input</label>
     <input id ="dataInput" type="text" name="dataInput" />
+    <br>
     <label for="type">Type</label>
     <select id="type" name="type" size="1">
       <option>hash-md5</option>
       <option>hash-sha256</option>
       <option>crack-md5</option>
     </select>
-    <button type="reset">Eingaben zurücksetzen</button>
-    <button id="task-formular" onclick="sendTask(document.getElementById(id).value, document.getElementById('type').value,document.getElementById('dataInput').value)" type="submit">Eingaben absenden</button>
+    <br>
+    <button id="reset-formular-button" type="reset">Eingaben zurücksetzen</button>
+    <br>
+    <button id="send-formular-button" onclick="sendTask(document.getElementById(id).value, document.getElementById('type').value,document.getElementById('dataInput').value)" type="submit">Eingaben absenden</button>
   </form>
 
 <br>
@@ -124,7 +129,7 @@
 </table>
 
 <button id="task-load-button" onclick="initializeTask()">Daten von Server laden</button>
-
+  
 </section>
 
 </section>

@@ -57,7 +57,9 @@ var sendTask = function(id, type, dataInput) {
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d'); 
 
     var data;
-		
+	
+	//TODO Was ist hier falsch?
+	
 	data = {  
         "id" : parseInt(id,10),
         "type" : type, 
