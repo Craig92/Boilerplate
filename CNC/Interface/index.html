@@ -37,7 +37,7 @@
 <section id="status" class="focus">
 <h2>Status</h1>
 
-<button onclick="refreshPage()">Aktualiseren</button>
+<button onclick="refreshPage()"> <img src ="./icons/refresh.png" height="16" alt=""> Aktualiseren</button>
 
 <h2>Statustabelle</h2>
 
@@ -67,7 +67,7 @@
 	</tbody>
 </table>
 
-    <button id="status-load-button" onclick="initializeStatus()">Daten von Server laden</button>
+    <button id="status-load-button" onclick="initializeStatus()"> <img src ="./icons/download.png" height="16" alt=""> Daten von Server laden</button>
          
 </section>
 
@@ -75,7 +75,7 @@
 
 <h2>Auftrag</h2>
 
-<button onclick="refreshPage()">Aktualiseren</button>
+<button onclick="refreshPage()"> <img src ="./icons/refresh.png" height="16" alt=""> Aktualiseren</button>
 
 <h2>Auftrageformular</h2>
 <p>Hier befindet sich das Formular um neue Aufträge hinzuzufügen.</p>
@@ -95,9 +95,9 @@
       <option>crack-md5</option>
     </select>
     <br>
-    <button id="reset-formular-button" type="reset">Eingaben zurücksetzen</button>
+    <button id="reset-formular-button" type="reset"> <img src ="./icons/refresh.png" height="16" alt=""> Eingaben zurücksetzen</button>
     <br>
-    <button id="send-formular-button" onclick="sendTask(document.getElementById(id).value, document.getElementById('type').value,document.getElementById('dataInput').value)" type="submit">Eingaben absenden</button>
+    <button id="send-formular-button" onclick="sendTask(document.getElementById(id).value, document.getElementById('type').value,document.getElementById('dataInput').value)" type="submit"> <img src ="./icons/upload.png" height="16" alt=""> Eingaben absenden</button>
   </form>
 
 <br>
@@ -128,7 +128,7 @@
 	</tbody>
 </table>
 
-<button id="task-load-button" onclick="initializeTask()">Daten von Server laden</button>
+<button id="task-load-button" onclick="initializeTask()"> <img src ="./icons/download.png" height="16" alt=""> Daten von Server laden</button>
   
 </section>
 
@@ -138,6 +138,7 @@
 
   <footer id="group-footer">
       <p> Gruppenname: JADT-Script <a href="https://github.com/Craig92/Boilerplate">GitHub Adresse</a></p>
+      <p> Icons designed by <a hred="http://www.flaticon.com/">Freepik</a></p> 􀀌􀀋􀀆􀀅􀀚􀀝􀀅􀀓􀀎􀀋
       <p> Julian Busch, Alexander Daum, Dominik Treutle, Thorsten Foehringer</p>
     </footer>
 
