@@ -10,3 +10,7 @@ function refreshPage(){
     
 };
 
+
+function autoRefresh() {
+    setInterval(refreshPage, 6000);   
+}
