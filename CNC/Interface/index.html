@@ -7,28 +7,27 @@
     <meta name="description" content="JADT-Script Indexsite">
     <meta name="keywords" content="waw, html, css">
     <meta name="viewport" content="width=device-width">
-    <meta http-equiv="refresh" content="60">
-    <link rel="stylesheet" type="text/css" href="./index.css">
-    <link rel="stylesheet" media="print" href="./index.css">
-    <script src="./sorttable.js"></script>
-    <script src="./statusTableFunctionallity.js"></script>
-    <script src="./taskTableFunctionallity.js"></script>
+    <link rel="stylesheet" type="text/css" href="./design/index.css">
+    <link rel="stylesheet" media="print" href="./design/index.css">
+    <script src="./script/sorttable.js"></script>
+    <script src="./script/statusTableFunctionallity.js"></script>
+    <script src="./script/taskTableFunctionallity.js"></script>
+    <script src="./script/generalFunctionallity.js"></script>
     <title> CNC Interface JADT-Team </title>
-
+        
   </head>
 
   <body>
 
     <header id="header-name">
-      <h1>CNC Interface</h1>
+      <h1>CNC Interface</h1>  
     </header>
-
 
 <aside id="sidebar-menu">
     <h2>Menü</h2>
     <menu>
-      <li><a href="#status">Status</a></li>
-      <li><a href="#tasks">Auftrag</a></li>
+      <li><a href="#status" onclick="refreshPage()" >Status</a></li>
+      <li><a href="#tasks" onclick="refreshPage()" >Auftrag</a></li>
     </menu>
 </aside>
 
@@ -37,12 +36,8 @@
 
 <section id="status" class="focus">
 <h2>Status</h1>
-<p>Fehlende Funktionalitäten für Meilenstein 1:</p>
-<p>- Automatisches nach oben verschieben der Sections beim Klicken des Menupunkts</p>
-<p>Fehlende Funktionalität für Meilenstein 2:</p>
-<p>- Auftragsformular: POST-Request implementieren</p>
-<p>- optische Anpassungen in der css-Datei für das Formular</p>
-<br>
+
+<button onclick="refreshPage()">Aktualiseren</button>
 
 <h2>Statustabelle</h2>
 
@@ -80,6 +75,28 @@
 
 <h2>Auftrag</h2>
 
+<button onclick="refreshPage()">Aktualiseren</button>
+
+<h2>Auftrageformular</h2>
+<p>Hier befindet sich das Formular um neue Aufträge hinzuzufügen.</p>
+
+<form id="task-form" methode="get">
+    <label for ="id">Input</label>
+    <input type="text" id ="id">
+    <label for ="dataInput">Input</label>
+    <input id ="dataInput" type="text" name="dataInput" />
+    <label for="type">Type</label>
+    <select id="type" name="type" size="1">
+      <option>hash-md5</option>
+      <option>hash-sha256</option>
+      <option>crack-md5</option>
+    </select>
+    <button type="reset">Eingaben zurücksetzen</button>
+    <button id="task-formular" onclick="sendTask(document.getElementById(id).value, document.getElementById('type').value,document.getElementById('dataInput').value)" type="submit">Eingaben absenden</button>
+  </form>
+
+<br>
+
 <h2>Auftragstabelle</h2>
 
 <p>Hier ist die Auftragstabelle mit den aktuellen Aufträge.</p>
@@ -108,28 +125,10 @@
 
 <button id="task-load-button" onclick="initializeTask()">Daten von Server laden</button>
 
-<br>
-<h2>Auftrageformular</h2>
-<p>Hier befindet sich das Formular um neue Aufträge hinzuzufügen.</p>
-
-<form id="task-form" methode="get">
-    <label for = "id">ID</label>
-    <input id ="id" type="text" name="id" />
-    <label for ="data">Input</label>
-    <input id ="data" type="text" name="data" />
-    <label for="type">Type</label>
-    <select id="type" name="type" size="1">
-      <option>hash-md5</option>
-      <option>hash-sha256</option>
-      <option>crack-md5</option>
-    </select>
-    <button type="reset">Eingaben zurücksetzen</button>
-    <button id="task-formular" onclick="sendTask(document.getElementById('id').value, document.getElementById('type').value,document.getElementById('data').value)" type="submit">Eingaben absenden</button>
-  </form>
-  
 </section>
 
 </section>
+
 </main>
 
   <footer id="group-footer">

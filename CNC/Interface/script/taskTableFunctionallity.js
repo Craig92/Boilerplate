@@ -45,32 +45,28 @@ var initializeTask = function() {
 
 };
 
-var sendTask = function(id, type, data) { 
-    var xhr = new XMLHttpRequest(); 
+var sendTask = function(id, type, dataInput) { 
+    
+	var xhr = new XMLHttpRequest(); 
  
- 
-    alert("Die ID " + id + " vom Typ '" + type + "' wurde mit Input: ' " + data + " ' an den Server übermittelt."); 
+    alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' an den Server übermittelt."); 
  
     xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Tasks'); 
-   
     xhr.responseType = 'json'; 
     xhr.setRequestHeader('Content-Type', 'application/json'); 
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d'); 
- 
-    var data; 
-        xhr.onload = function() { 
-            console.log("Response: ", xhr.response); 
-        }; 
 
- 
-    data = {  
-        "id": parseInt(id, 10), 
-        "type": type, 
-   	    "data": { 
- 		    'input': data, 
-            'output': null  
+    var data;
+		
+	data = {  
+        "id" : parseInt(id,10),
+        "type" : type, 
+   	    "data" : { 
+ 		    'input' : dataInput, 
+			'output' : null   
         } 
-    }; 
-  
-    xhr.send(JSON.stringify(data)); 
-    }; 
+    
+	};
+    xhr.send(JSON.stringify(data));
+	return true; 
+}; 
