@@ -68,7 +68,7 @@ td, th {
 }
 
 tbody tr:hover {
-    background: yellow;
+	background: yellow;
     color: black;
 }
 
@@ -86,7 +86,6 @@ tbody tr:hover {
 
 form {
 	width: auto;
-	
 	border: 1px solid grey;
 }
 
