@@ -44,6 +44,9 @@ var initializeTask = function() {
 
 };
 
+/**
+ * Sendet neue Aufgaben mit Typ und Inputtext an den Server und aktualisert anschließend die Aufgabentabelle.
+ */
 var sendTask = function(id, type, dataInput) {
 
     var xhr = new XMLHttpRequest();
@@ -56,6 +59,7 @@ var sendTask = function(id, type, dataInput) {
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
 
 
+    //Prüft, ob die Eingabe vom Server angenommen wurde.
     xhr.onload = function(){
         if (this.status == 200){
             var entry = xhr.response;

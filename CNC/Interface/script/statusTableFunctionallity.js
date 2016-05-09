@@ -17,6 +17,7 @@ var initializeStatus = function() {
 
             var code = '';
 
+            //Erzeugt die Tabelle mit den Einträgen.
             for (var d = 0, dl = data.length; d < dl; d++) {
 
                 var entry = data[d];
@@ -38,6 +39,7 @@ var initializeStatus = function() {
 
             content.innerHTML = code;
 
+            //Erzeugt die "Start/Stop"-Buttons mit den entsprechenden Zustand.
             for (var d = 0, dl = data.length; d < dl; d++) {
                 var entry = data[d];
                 var buttonID = entry.id;
@@ -66,6 +68,9 @@ var initializeStatus = function() {
 
 };
 
+/**
+ * Wechselt die Farbe und die Schrift des "Start/Stop"-Buttons jen nach Zustand und aktualisert anschließend die Status Tabelle.
+ */
 function toggleButton(buttonID, status) {
 
     if (document.getElementById(buttonID).innerHTML == "Start") {
@@ -97,7 +102,9 @@ function toggleButton(buttonID, status) {
 
 };
 
-
+/**
+ * Senden an den Server den geänderten Zusand des Buttons.
+ */
 var sendStatus = function(id, status) {
 
     var xhr = new XMLHttpRequest();

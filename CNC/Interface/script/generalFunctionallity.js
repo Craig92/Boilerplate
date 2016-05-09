@@ -1,3 +1,6 @@
+/**
+ * Aktualisiert die aktuelle Seite.
+ */
 function refreshPage() {
 
     var page = window.location.hash;
@@ -10,6 +13,9 @@ function refreshPage() {
 
 };
 
+/**
+ * Ruft nach einer festgelegten Zeit die refreshPage()-Methode auf.
+ */
 function autoRefresh() {
     setInterval(refreshPage, 6000);
 }
