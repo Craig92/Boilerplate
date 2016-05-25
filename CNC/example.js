@@ -1,12 +1,10 @@
 var express = require('express');
 var app     = express();
+var parser  = require('body-parser');
+var cors    = require('cors');
 
 app.get('/', (req, res) => {
     res.send('Hello world!');
-});
-
-app.listen(3000, () => {
-    console.log('Example listening on http://localhost:3000');
 });
 
 app.get('/api/Tasks', (req, res) => {
@@ -16,10 +14,6 @@ app.get('/api/Tasks', (req, res) => {
 app.get('/api/Tasks/:id', (req, res) =>{
     res.send('task id was' + req.params.id)
 });
-
-var express = require('express');
-var app     = express();
-var parser  = require('body-parser');
 
 app.use(parser.urlencoded({ extended: true }));
 app.use(parser.json());
@@ -31,4 +25,12 @@ app.post('/Tasks/:id', (req, res) => {
     res.json({ message: 'UPDATE Task ' + req.params.id });
 });
 
-app.listen(3000);
+//fehlerbehandunlung
+app.use(function(err, req, res, next) {
+    res.json({message: 'NOT OK'});
+})
+
+
+app.listen(3000, () => {
+    console.log('Example listening on http://localhost:3000');
+});
