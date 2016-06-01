@@ -48,6 +48,29 @@ fs.readFile('./example.txt', 'utf8',  (err, data) => {
     
     if (err) throw err;
     console.log(data);
-    
-    
+   
 });
+
+var fizz = function* () {
+    let i = 0;
+    while (++i) {
+        var is_fizz = i % 3 === 0;
+        var is_buzz = i % 5 === 0;
+        var is_fizzbuzz = i % 15 ===0;
+        if (is_fizzbuzz){
+            yield 'n00b1337';        
+        } else if (is_fizz) {
+            yield 'N00b';
+        } else if (is_buzz) {
+            yield '1337';
+        } else {
+            yield '' + i;
+        }
+    }
+};
+
+
+var generator = fizz();
+for (let i = 0; i < 100; i++) {
+    console.log(generator.next().value);
+}
