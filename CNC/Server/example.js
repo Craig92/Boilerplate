@@ -34,3 +34,19 @@ app.use(function(err, req, res, next) {
 app.listen(3000, () => {
     console.log('Example listening on http://localhost:3000');
 });
+
+//Schreibt in eine datei
+fs.write('./example.txt', 'Hallo', 'utf8', (err) => {
+   
+    if (err) throw err;
+    colsole.log('Geschrieben!');
+});
+
+//Liest eine datei
+fs.readFile('./example.txt', 'utf8', (err) => {
+    
+    if (err) throw err;
+    console.log(data);
+    
+    }
+});
