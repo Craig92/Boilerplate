@@ -48,5 +48,5 @@ fs.readFile('./example.txt', 'utf8', (err) => {
     if (err) throw err;
     console.log(data);
     
-    }
+    
 });
