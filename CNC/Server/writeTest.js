@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-fs.writeFile('writeTestText.txt', 'test test bla', (err) => {
+fs.writeFile('writeTestText.txt', 'hallo !!!', (err) => {
   if (err) throw err;
-  console.log('It\'s saved!');
+  console.log('schreiben erfolgreich !');
 });

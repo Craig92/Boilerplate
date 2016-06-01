@@ -35,15 +35,16 @@ app.listen(3000, () => {
     console.log('Example listening on http://localhost:3000');
 });
 
+var fs = require('fs');
 //Schreibt in eine datei
-fs.write('./example.txt', 'Hallo', 'utf8', (err) => {
+fs.writeFile('./example.txt', 'Hallo', (err) => {
    
     if (err) throw err;
-    colsole.log('Geschrieben!');
+    console.log('Geschrieben!');
 });
 
 //Liest eine datei
-fs.readFile('./example.txt', 'utf8', (err) => {
+fs.readFile('./example.txt', 'utf8',  (err, data) => {
     
     if (err) throw err;
     console.log(data);
