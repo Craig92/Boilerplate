@@ -6,8 +6,8 @@ var initializeTask = function() {
     var xhr = new XMLHttpRequest();
     var content = document.querySelector('table#task-table tbody');
 
-
-    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Tasks');
+    xhr.open('GET', 'http://localhost:1337/api/Tasks');
+//    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Tasks');
     xhr.responseType = 'json';
 
     xhr.onload = function() {
@@ -26,22 +26,14 @@ var initializeTask = function() {
                 code += '<td>' + entry.type + '</td>';
                 code += '<td>' + entry.data.input + '</td>';
                 code += '<td>' + entry.data.output + '</td>';
-
                 code += '</tr>';
-            }
-
-            content.innerHTML = code;
-
+            }            
+            content.innerHTML = code;     
         } else {
-
-            content.innerHTML = 'Failed to load :(';
-
+            content.innerHTML = 'LOADING ERROR :(';
         }
-
     };
-
     xhr.send(null);
-
 };
 
 /**
@@ -51,13 +43,11 @@ var sendTask = function(id, type, dataInput) {
 
     var xhr = new XMLHttpRequest();
 
-    
-
-    xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Tasks');
+    xhr.open('POST', 'http://localhost:1337/api/Tasks');
+//    xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Tasks');
     xhr.responseType = 'json';
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
-
 
     //Prüft, ob die Eingabe vom Server angenommen wurde.
     xhr.onload = function(){
@@ -85,6 +75,5 @@ var sendTask = function(id, type, dataInput) {
 
     };
     xhr.send(JSON.stringify(data));
-    initializeTask();
-    
+    initializeTask();   
 };

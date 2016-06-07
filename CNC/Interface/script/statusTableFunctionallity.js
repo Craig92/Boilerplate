@@ -6,22 +6,21 @@ var initializeStatus = function() {
     var xhr = new XMLHttpRequest();
     var content = document.querySelector('table#status-table tbody');
 
-
-    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
+    xhr.open('GET', 'http://localhost:1337/api/Status');
+//    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
     xhr.responseType = 'json';
-
+    
     xhr.onload = function() {
-
+        
         var data = xhr.response;
+        
         if (data instanceof Array) {
-
+            
             var code = '';
 
             //Erzeugt die Tabelle mit den Einträgen.
             for (var d = 0, dl = data.length; d < dl; d++) {
-
                 var entry = data[d];
-
                 code += '<tr>';
                 code += '<td>' + entry.id + '</td>';
                 code += '<td>' + entry.ip + '</td>';
@@ -33,7 +32,6 @@ var initializeStatus = function() {
                 } else {
                     code += '<td><button class="status-button" id="' + entry.id + '" onClick="toggleButton(' + entry.id + ', false);"></button></td>';
                 }
-
                 code += '</tr>';
             }
 
@@ -53,28 +51,20 @@ var initializeStatus = function() {
                     document.getElementById(buttonID).style.background = "yellow";
                     document.getElementById(buttonID).style.color = "black";
                 }
-
             }
-
         } else {
-
-            content.innerHTML = 'Failed to load :(';
-
+            content.innerHTML = 'LOADING ERROR :(';
         }
-
     };
-
     xhr.send(null);
-
 };
 
 /**
- * Wechselt die Farbe und die Schrift des "Start/Stop"-Buttons jen nach Zustand und aktualisert anschließend die Status Tabelle.
+ * Wechselt die Farbe und die Schrift des "Start/Stop"-Buttons je nach Zustand und aktualisert anschließend die Status Tabelle.
  */
 function toggleButton(buttonID, status) {
 
     if (document.getElementById(buttonID).innerHTML == "Start") {
-
         if (sendStatus(buttonID, true)) {
             document.getElementById(buttonID).innerHTML = "Stop";
             document.getElementById(buttonID).style.background = "yellow";
@@ -85,9 +75,7 @@ function toggleButton(buttonID, status) {
             alert("Ein Fehler beim Ändern des Status ist aufgetreten!");
             initializeStatus();
         }
-
     } else {
-
         if (sendStatus(buttonID, false)) {
             document.getElementById(buttonID).innerHTML = "Start";
             document.getElementById(buttonID).style.background = "blue";
@@ -99,7 +87,6 @@ function toggleButton(buttonID, status) {
             initializeStatus();
         }
     }
-
 };
 
 /**
@@ -109,7 +96,8 @@ var sendStatus = function(id, status) {
 
     var xhr = new XMLHttpRequest();
 
-    xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Status');
+    xhr.open('POST', 'http://localhost:1337/api/Status');
+//    xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Status');
     xhr.responseType = 'json';
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
@@ -117,8 +105,6 @@ var sendStatus = function(id, status) {
     var data = {
         "id": parseInt(id, 10),
         "status": status
-    };
-
-    xhr.send(JSON.stringify(data));
-    return true;
+    };  
+    xhr.send(JSON.stringify(data)); 
 };

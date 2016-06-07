@@ -10,11 +10,10 @@ function refreshPage() {
     } else if (page === "#status") {
         initializeStatus();
     }
-
 };
 
 /**
- * Ruft nach einer festgelegten Zeit die refreshPage()-Methode auf.
+ * Ruft nach einer 6000ms die refreshPage()-Methode auf.
  */
 function autoRefresh() {
     setInterval(refreshPage, 6000);
