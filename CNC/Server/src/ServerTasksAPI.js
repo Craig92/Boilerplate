@@ -4,6 +4,10 @@ var fs = require('fs');
 var app = express();
 var serverPort = 1337;
 
+var typeArray = ['hash-md5','hash-sha256','crack-md5'];
+var taskArray = [];
+var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
+
 //Tasks GET REQUEST
 app.get('/api/Tasks', (req, res) => {
 
@@ -22,16 +26,59 @@ app.get('/api/Tasks/:id', (req, res) => {
 //Tasks POST REQUEST
 app.post('/api/Tasks', (req, res) => {
    
-       if ('reg/res' == 'unserToken'){
-        trage Formulareingabe in datenbank ein und speichert es und gib medlung zurück
-    } else
-        gib meldung zurück, dass es nicht ging
-    //TODO Request akzeptiert Datenobjekt ohne ID
-    //liefert  {message:'OK'}  oder  {message:'NOT OK'} 
-    //schreibt in ServerTasks.txt
+    var request = req.body;
+    var token = req.get('Token');
+    var isTeamToken = false;
+
+    //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
+    if (token !== null){
+        if(token === teamToken){
+            console.log('Token akzeptiert');
+            isTeamToken = true;
+        } else {
+            console.log('Token angelehnt');
+        }
+    }
+
+    if (isTeamToken){
+        var type = req.body.type;
+
+        //Prüft, ob der übergebene Tasks einen gültiger Type hat 
+        var findType = tasksArray.find(function(object){
+            return object.type == type;
+        });
+
+        if(findType !== null){
+            var id = req.body.id;
+
+            //Prüft, ob der übergebene Tasks eine gültige ID hat
+            var findID = tasksArray.find(function(object){
+                return object.id == id;
+            });
+
+            if (findID !== null){
+                
+               //Vorhandenen Eintrag ändern
+               
+
+            } else {
+                //id festlegen und neuen eintrag hinzufügen
+            }
+
+             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray),function(error){
+                    if(error) throw error;
+                    console.log('Tasks Einträge wurden modifiziert');
+             });
+
+        } else {
+            res.send(JSON.stringify({message: 'NOT OK'}));  
+        }
+
+
+    } else {
+        res.send(JSON.stringify({message: 'NOT OK'}));
+    }
+
     });
     
-    //API Regeln für ID:
-    //Wenn  id  gesetzt, dann wird ein vorhandenes Objekt modifiziert
-    //Wenn  id  nicht gesetzt, wird ein Objekt erstellt
-    //Wenn  id  nicht gefunden, gibt es einen Fehler
+   

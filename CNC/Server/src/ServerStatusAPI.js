@@ -4,6 +4,9 @@ var fs = require('fs');
 const app = express();
 var serverPort = 1337;
 
+var statusArray = [];
+var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
+
 //STATUS GET REQUEST
 app.get('/api/Status', (req, res) => {
     var fs = require('fs');
@@ -70,15 +73,55 @@ app.get('/api/Status/:id', (req, res) => {
     
 //Status POST REQUEST
 app.post('/api/Status', (req, res) => {
-    wehcselt den status der übergebenen id in den übergebenen status
-    gibt fehlermedlung wenn id nicht vorhanden
-    //TODO POST Requests werden nur mit validem Token akzeptiert
-    //Request akzeptiert status Flag
-    //liefert  {message:'OK'}  oder  {message:'NOT OK'} 
-    //schreibt ServerStatus.txt
-    });
     
-    //API Regeln für ID:
-    //Wenn  id  gesetzt, dann wird ein vorhandenes Objekt modifiziert
-    //Wenn  id  nicht gesetzt, wird ein Objekt erstellt
-    //Wenn  id  nicht gefunden, gibt es einen Fehler
+    var request = req.body;
+    var token = req.get('Token');
+    var isTeamToken = false;
+
+    //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
+    if (token !== null){
+        if(token === teamToken){
+            console.log('Token akzeptiert');
+            isTeamToken = true;
+        } else {
+            console.log('Token angelehnt');
+        }
+    }
+
+    if (isTeamToken){
+        var id = req.body.id;
+
+        //Prüft, ob der übergebene Status eine gültige ID hat
+        var findID = statusArray.find(function(object){
+            return object.id == id;
+        });
+
+        if (findID !== null){
+            var status = req.body.status;
+                
+            if (status !== null){
+
+                if (status === true){
+                    findID.workload = 1.0;
+                    console.log('ID ' + findID + ' wurde gestartet');
+                } else {
+                    findID.workload = 0.0;
+                    console.log('ID ' + findID + ' wurde gestopt');
+                }
+                fs.writeFile('./ServerStatus.txt', JSON.stringify(statusArray),function(error){
+                    if(error) throw error;
+                    console.log('Status Einträge wurden modifiziert');
+                });
+            } else {
+                res.send(JSON.stringify({message: 'NOT OK'})); 
+            }
+
+        } else {
+            res.send(JSON.stringify({message: 'NOT OK'})); 
+        }
+
+    } else {
+            res.send(JSON.stringify({message: 'NOT OK'}));  
+    }
+
+    });
