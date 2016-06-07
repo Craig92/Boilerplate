@@ -56,7 +56,7 @@ app.get('/api/Status/:id', (req, res) => {
             }
 
             for(var I =0; i < statusArray.length; i++){
-               if(statusArray[i].search("\"id\": " + req.params.id) != -1) {
+               if(statusArray[i].search("\"id\" : " + req.params.id) != -1) {
                    res.send(JSON.stringify(statusArray[i]));
                }
 
