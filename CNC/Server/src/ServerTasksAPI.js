@@ -8,22 +8,70 @@ var typeArray = ['hash-md5','hash-sha256','crack-md5'];
 var taskArray = [];
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
 
-//Tasks GET REQUEST
+//Tasks GET REQUEST Liefert ein Object mit allen Einträgen der Tasks Datenbank
 app.get('/api/Tasks', (req, res) => {
+    var fs = require('fs');
 
-    liefert array mit allen Tasks
-    //TODO Request liefert Array an Auftrag Objekten
-    //liest aus ServerTasks.txt
+        fs.readFile('./ServerTasks.txt', 'utf8', (err, data) => {
+            if (err) throw err;
+            var taskString = data.toString('utf8');
+            var indexKlammerAuf = [];
+            var indexKlammerZu = [];
+            
+            for(var i = 0; i < taskString.length; i++){
+                if(taskString.charAt(i) == '{'){
+                    indexKlammerAuf.push(i);
+                } else if(taskString.charAt(i) == '}'){
+                    indexKlammerZu.push(i);  
+                }                      
+            }
+
+            for(var i = 0; i < indexKlammerAuf.length; i++){
+                taskArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
+            }
+
+        });    
+
+        res.send(JSON.stringify(taskArray));
     });
 
+//Tasks GET REQUEST Liefert Array des Eintrags aus der Datenbak, wenn ID vorhanden ist.
 app.get('/api/Tasks/:id', (req, res) => {
 
-    liefert den task mit der übergebenen id, wenn es nicht vorhanden ist gib fehlermedung (false) zurück
-    //TODO Request liefert Array an Auftrag Objekten
-    //liest aus ServerTasks.txt
+//TODO ID nicht vorhanden?
+     var fs = require('fs');
+
+        fs.readFile('./ServerTasks.txt', 'utf8', (err, data) => {
+            if (err) throw err;
+            var taskString = data.toString('utf8');
+            var indexKlammerAuf = [];
+            var indexKlammerZu = [];
+            
+            for(var i = 0; i < taskString.length; i++){
+                if(taskString.charAt(i) == '{'){
+                    indexKlammerAuf.push(i);
+                } else if(taskString.charAt(i) == '}'){
+                    indexKlammerZu.push(i);  
+                }                      
+            }
+
+            for(var i = 0; i < indexKlammerAuf.length; i++){
+                statusArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
+            }
+
+            for(var I =0; i < statusArray.length; i++){
+               if(statusArray[i].search("\"id\" : " + req.params.id) != -1) {
+                   res.send(JSON.stringify(statusArray[i]));
+               }
+
+                
+            }
+
+        });    
+
     });
     
-//Tasks POST REQUEST
+//Tasks POST REQUEST Modifiziert Eintrag in Tasks Datenbank, fall erlaubt.
 app.post('/api/Tasks', (req, res) => {
    
     var request = req.body;
@@ -59,7 +107,7 @@ app.post('/api/Tasks', (req, res) => {
             if (findID !== null){
                 
                //Vorhandenen Eintrag ändern
-               
+
 
             } else {
                 //id festlegen und neuen eintrag hinzufügen

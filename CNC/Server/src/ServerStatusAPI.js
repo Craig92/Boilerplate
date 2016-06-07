@@ -7,12 +7,11 @@ var serverPort = 1337;
 var statusArray = [];
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
 
-//STATUS GET REQUEST
+//STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
     var fs = require('fs');
-    var statusArray = [];
 
-        fs.readFile('ServerStatus.txt', 'utf8', (err, data) => {
+        fs.readFile('./ServerStatus.txt', 'utf8', (err, data) => {
             if (err) throw err;
             var statusString = data.toString('utf8');
             var indexKlammerAuf = [];
@@ -35,12 +34,13 @@ app.get('/api/Status', (req, res) => {
         res.send(JSON.stringify(statusArray));
     });
 
+//STATUS GET REQUEST Liefert Array des Eintrags aus der Datenbak, wenn ID vorhanden ist.
 app.get('/api/Status/:id', (req, res) => {
 
+//TODO ID nicht vorhanden?
   var fs = require('fs');
-    var statusArray = [];
 
-        fs.readFile('ServerStatus.txt', 'utf8', (err, data) => {
+        fs.readFile('./ServerStatus.txt', 'utf8', (err, data) => {
             if (err) throw err;
             var statusString = data.toString('utf8');
             var indexKlammerAuf = [];
@@ -71,7 +71,7 @@ app.get('/api/Status/:id', (req, res) => {
     });
 
     
-//Status POST REQUEST
+//Status POST REQUEST Modifiziert Eintrag in Status Datenbank, fall erlaubt.
 app.post('/api/Status', (req, res) => {
     
     var request = req.body;
