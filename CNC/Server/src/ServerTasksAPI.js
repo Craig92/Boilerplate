@@ -18,72 +18,49 @@ app.use(parser.json());
 //Liest die ServerTasks.txt und schreibt Sie ins tasksArray
 fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     if (error) throw error;
+
+    var taskString = data.toString('utf8');
+        var indexKlammerAuf = [];
+        var indexKlammerZu = [];
+            
+        for(var i = 0; i < taskString.length; i++){
+            if(taskString.charAt(i) == '{'){
+                indexKlammerAuf.push(i);
+            } else if(taskString.charAt(i) == '}'){
+                 indexKlammerZu.push(i);  
+            }                      
+        }
+
+        for(var i = 0; i < indexKlammerAuf.length; i++){
+            taskArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
+        }
+
     tasksArray = JSON.parse(data.toString());
-})
+});
 
 
 //Tasks GET REQUEST Liefert ein Object mit allen Einträgen der Tasks Datenbank
 app.get('/api/Tasks', (req, res) => {
-    var fs = require('fs');
 
-        fs.readFile('./ServerTasks.txt', 'utf8', (err, data) => {
-            if (err) throw err;
-            var taskString = data.toString('utf8');
-            var indexKlammerAuf = [];
-            var indexKlammerZu = [];
-            
-            for(var i = 0; i < taskString.length; i++){
-                if(taskString.charAt(i) == '{'){
-                    indexKlammerAuf.push(i);
-                } else if(taskString.charAt(i) == '}'){
-                    indexKlammerZu.push(i);  
-                }                      
-            }
-
-            for(var i = 0; i < indexKlammerAuf.length; i++){
-                taskArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
-            }
-
-        });    
-
+    if (taskArray instanceof Array) {
         res.send(JSON.stringify(taskArray));
-    });
+    }
+ 
+});
 
 //Tasks GET REQUEST Liefert Array des Eintrags aus der Datenbak, wenn ID vorhanden ist.
 app.get('/api/Tasks/:id', (req, res) => {
 
-//TODO ID nicht vorhanden?
-     var fs = require('fs');
+  if(taskArray instanceof Array) {
+        var id = taskArray.find(function(object) {return object.id == req.params.id;});
 
-        fs.readFile('./ServerTasks.txt', 'utf8', (err, data) => {
-            if (err) throw err;
-            var taskString = data.toString('utf8');
-            var indexKlammerAuf = [];
-            var indexKlammerZu = [];
-            
-            for(var i = 0; i < taskString.length; i++){
-                if(taskString.charAt(i) == '{'){
-                    indexKlammerAuf.push(i);
-                } else if(taskString.charAt(i) == '}'){
-                    indexKlammerZu.push(i);  
-                }                      
-            }
-
-            for(var i = 0; i < indexKlammerAuf.length; i++){
-                statusArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
-            }
-
-            for(var I =0; i < statusArray.length; i++){
-               if(statusArray[i].search("\"id\" : " + req.params.id) != -1) {
-                   res.send(JSON.stringify(statusArray[i]));
-               }
-
-                
-            }
-
-        });    
-
-    });
+        if (id !== undefined){
+            res.send(JSON.stringify(id));
+        } else {
+            res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
+        }
+    }    
+});
     
 //Tasks POST REQUEST Modifiziert Eintrag in Tasks Datenbank, fall erlaubt.
 app.post('/api/Tasks', (req, res) => {

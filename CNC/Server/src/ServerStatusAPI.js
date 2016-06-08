@@ -15,69 +15,46 @@ app.use(parser.json());
 //Liest die ServerStatus.txt und schreibt Sie ins statusArray
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     if (error) throw error;
+
+    var statusString = data.toString('utf8');
+    var indexKlammerAuf = [];
+    var indexKlammerZu = [];
+            
+    for(var i = 0; i < statusString.length; i++){
+        if(statusString.charAt(i) == '{'){
+            indexKlammerAuf.push(i);
+        } else if(statusString.charAt(i) == '}'){
+            indexKlammerZu.push(i);  
+        }                      
+    }
+
+    for(var i = 0; i < indexKlammerAuf.length; i++){
+        statusArray.push(statusString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
+    }
+
     statusArray = JSON.parse(data.toString());
-})
+});
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
-    var fs = require('fs');
-
-        fs.readFile('./ServerStatus.txt', 'utf8', (err, data) => {
-            if (err) throw err;
-            var statusString = data.toString('utf8');
-            var indexKlammerAuf = [];
-            var indexKlammerZu = [];
-            
-            for(var i = 0; i < statusString.length; i++){
-                if(statusString.charAt(i) == '{'){
-                    indexKlammerAuf.push(i);
-                } else if(statusString.charAt(i) == '}'){
-                    indexKlammerZu.push(i);  
-                }                      
-            }
-
-            for(var i = 0; i < indexKlammerAuf.length; i++){
-                statusArray.push(statusString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
-            }
-
-        });    
-
+   
+    if (statusArray instanceof Array) {
         res.send(JSON.stringify(statusArray));
-    });
+    }
+});
 
-//STATUS GET REQUEST Liefert Array des Eintrags aus der Datenbak, wenn ID vorhanden ist.
+//STATUS GET REQUEST Liefert Array des Eintrags aus der Datenbank, wenn ID vorhanden ist.
 app.get('/api/Status/:id', (req, res) => {
 
-//TODO ID nicht vorhanden?
-  var fs = require('fs');
+    if(statusArray instanceof Array) {
+        var id = statusArray.find(function(object) {return object.id == req.params.id;});
 
-        fs.readFile('./ServerStatus.txt', 'utf8', (err, data) => {
-            if (err) throw err;
-            var statusString = data.toString('utf8');
-            var indexKlammerAuf = [];
-            var indexKlammerZu = [];
-            
-            for(var i = 0; i < statusString.length; i++){
-                if(statusString.charAt(i) == '{'){
-                    indexKlammerAuf.push(i);
-                } else if(statusString.charAt(i) == '}'){
-                    indexKlammerZu.push(i);  
-                }                      
-            }
-
-            for(var i = 0; i < indexKlammerAuf.length; i++){
-                statusArray.push(statusString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
-            }
-
-            for(var I =0; i < statusArray.length; i++){
-               if(statusArray[i].search("\"id\" : " + req.params.id) != -1) {
-                   res.send(JSON.stringify(statusArray[i]));
-               }
-
-                
-            }
-
-        });    
+        if (id !== undefined){
+            res.send(JSON.stringify(id));
+        } else {
+            res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
+        }
+    }    
 
     });
 
