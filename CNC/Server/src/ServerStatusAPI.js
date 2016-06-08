@@ -1,11 +1,22 @@
 const express = require('express');
+const app = express();
 var bodyParser = require('body-parser');
 var fs = require('fs');
-const app = express();
-var serverPort = 1337;
+var cors = require('cors');
 
+var serverPort = 1337;
 var statusArray = [];
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
+
+app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(parser.json());
+
+//Liest die ServerStatus.txt und schreibt Sie ins statusArray
+fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
+    if (error) throw error;
+    statusArray = JSON.parse(data.toString());
+})
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
@@ -111,6 +122,8 @@ app.post('/api/Status', (req, res) => {
                 fs.writeFile('./ServerStatus.txt', JSON.stringify(statusArray),function(error){
                     if(error) throw error;
                     console.log('Status Einträge wurden modifiziert');
+
+                    res.send(JSON.stringify({message:'OK'}));
                 });
             } else {
                 res.send(JSON.stringify({message: 'NOT OK'})); 

@@ -1,12 +1,26 @@
-var express = require('express');
+const express = require('express');
+const app = express();
 var bodyParser = require('body-parser');
 var fs = require('fs');
-var app = express();
+var cors = require('cors');
+
 var serverPort = 1337;
 
 var typeArray = ['hash-md5','hash-sha256','crack-md5'];
 var taskArray = [];
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
+var counter = 0;
+
+app.use(cors());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(parser.json());
+
+//Liest die ServerTasks.txt und schreibt Sie ins tasksArray
+fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
+    if (error) throw error;
+    tasksArray = JSON.parse(data.toString());
+})
+
 
 //Tasks GET REQUEST Liefert ein Object mit allen Einträgen der Tasks Datenbank
 app.get('/api/Tasks', (req, res) => {
@@ -105,17 +119,39 @@ app.post('/api/Tasks', (req, res) => {
             });
 
             if (findID !== null){
-                
-               //Vorhandenen Eintrag ändern
+
+               //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
+               taskArray[taskArray.indexOf(id)] = request;
+               console.log('ID ' + req.id +  ' wurde modifiziert');
+               counter++;
 
 
             } else {
-                //id festlegen und neuen eintrag hinzufügen
+                
+                //Sucht die nächste freie Stelle im taskArray
+                for(var i = 0; i != taskArray.length; i++){
+                    if(taskArray[i].id != i){
+                        counter = i;
+                    }
+
+                    if(counter == taskArray.length){
+                          req.body.id = counter;
+                          taskArray.push(req.body);
+                          console.log('ID ' + req.body.id + ' wurde erstellt');
+                          counter++;
+                    } else {
+                        taskArray.push(req.body);
+                        console.log('ID ' + req.body.id + ' wurde erstellt');
+                        counter++;
+                    }
+                }
             }
 
              fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray),function(error){
                     if(error) throw error;
                     console.log('Tasks Einträge wurden modifiziert');
+
+                    res.send(JSON.stringify({message:'OK'}));
              });
 
         } else {
@@ -128,5 +164,3 @@ app.post('/api/Tasks', (req, res) => {
     }
 
     });
-    
-   
