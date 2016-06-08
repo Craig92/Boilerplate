@@ -7,28 +7,25 @@ https://code.visualstudio.com/
 
 Vorgehensweise:
 1. Installieren der angegebenen Programme.
-
 2. Starten von GitHub Desktop
-
 2a. Anmelden mit dem GitHub Account in Github Desktop
-
 2b. Auf der Linken Seite auf das Plus-Symbol klicken und beim eigenen Konto unter "Clone" das Repositorie "Craig92/Boilerplatte" 
 
 Anmerkung: Unter dem angegebenen Verzeichnis sollten nun die Dateien herutergeladen werden. Eventuell ist es nötog auf der rechten seite auf "synch" zu klicken.
 
 3. Starten von Visual studios Code
-
 3a. "Datei" - > "Ordner öffnen" und asnchließend der Ordner mit den GitHub Projekt auswählen.
-
 3b. Neben "Explorer" werden nun die Dateien und Unterordner des gewählten Projekts angezeigt und können verändert werden.
-
 3c. Sobald Dateien geändert oder hinzugefügt wurden werden sie bei "Git" angezeigt
-
 3d. Um änderunge hochzuladen/pushen muss unter "Git" eine Nachricht angegeben werden und auf den Hacken geklickt werden
 
 Anmerkungen: Bevor man anfängt zu arbeiten sollte man ersteinmal pullen um die aktuellen Dateien zu haben
 
-Wichtig: darauf achten, dass in "myFeature" gepusht wird !!!
+Wichtig: darauf achten, dass in "master" gepusht wird !!!
 
 
-... weitere Erklärungen folgen.
+TODO
+- Server starten implementieren
+- eventuell Anpassungen an GET und POST Methoden nötig
+- kommentieren
+- NICE TO HAVE: CSS Trasitions aus Meilenstein 2 einbauen 
