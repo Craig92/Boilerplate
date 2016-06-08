@@ -15,25 +15,26 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(parser.json());
 
+
 //Liest die ServerTasks.txt und schreibt Sie ins tasksArray
 fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     if (error) throw error;
 
     var taskString = data.toString('utf8');
-        var indexKlammerAuf = [];
-        var indexKlammerZu = [];
+    var indexKlammerAuf = [];
+    var indexKlammerZu = [];
             
-        for(var i = 0; i < taskString.length; i++){
-            if(taskString.charAt(i) == '{'){
-                indexKlammerAuf.push(i);
-            } else if(taskString.charAt(i) == '}'){
-                 indexKlammerZu.push(i);  
-            }                      
-        }
+    for(var i = 0; i < taskString.length; i++){
+        if(taskString.charAt(i) == '{'){
+            indexKlammerAuf.push(i);
+        } else if(taskString.charAt(i) == '}'){
+            indexKlammerZu.push(i);  
+        }                      
+    }
 
-        for(var i = 0; i < indexKlammerAuf.length; i++){
-            taskArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
-        }
+    for(var i = 0; i < indexKlammerAuf.length; i++){
+         taskArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
+    }
 
     tasksArray = JSON.parse(data.toString());
 });
@@ -45,8 +46,8 @@ app.get('/api/Tasks', (req, res) => {
     if (taskArray instanceof Array) {
         res.send(JSON.stringify(taskArray));
     }
- 
 });
+
 
 //Tasks GET REQUEST Liefert Array des Eintrags aus der Datenbak, wenn ID vorhanden ist.
 app.get('/api/Tasks/:id', (req, res) => {
@@ -54,6 +55,7 @@ app.get('/api/Tasks/:id', (req, res) => {
   if(taskArray instanceof Array) {
         var id = taskArray.find(function(object) {return object.id == req.params.id;});
 
+        //Gibt den angeforderten Task oder eine Meldung zurück
         if (id !== undefined){
             res.send(JSON.stringify(id));
         } else {
@@ -61,6 +63,7 @@ app.get('/api/Tasks/:id', (req, res) => {
         }
     }    
 });
+ 
     
 //Tasks POST REQUEST Modifiziert Eintrag in Tasks Datenbank, fall erlaubt.
 app.post('/api/Tasks', (req, res) => {
@@ -111,6 +114,7 @@ app.post('/api/Tasks', (req, res) => {
                         counter = i;
                     }
 
+                    //Fügt den neuen Task entsprechend ein
                     if(counter == taskArray.length){
                           req.body.id = counter;
                           taskArray.push(req.body);
@@ -124,6 +128,7 @@ app.post('/api/Tasks', (req, res) => {
                 }
             }
 
+             //Schreibt die Änderungen in die Datei
              fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray),function(error){
                     if(error) throw error;
                     console.log('Tasks Einträge wurden modifiziert');
@@ -140,4 +145,4 @@ app.post('/api/Tasks', (req, res) => {
         res.send(JSON.stringify({message: 'NOT OK'}));
     }
 
-    });
+});

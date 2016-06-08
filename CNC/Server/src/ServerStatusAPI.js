@@ -35,6 +35,7 @@ fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     statusArray = JSON.parse(data.toString());
 });
 
+
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
    
@@ -55,8 +56,7 @@ app.get('/api/Status/:id', (req, res) => {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
     }    
-
-    });
+});
 
     
 //Status POST REQUEST Modifiziert Eintrag in Status Datenbank, fall erlaubt.
@@ -114,4 +114,4 @@ app.post('/api/Status', (req, res) => {
             res.send(JSON.stringify({message: 'NOT OK'}));  
     }
 
-    });
+});
