@@ -32,6 +32,10 @@ var serverPort = 1337;
 var statusArray = [];
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
 
+var typeArray = ['hash-md5','hash-sha256','crack-md5'];
+var tasksArray = [];
+var counter = 0;
+
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -39,24 +43,6 @@ app.use(bodyParser.json());
 //Liest die ServerStatus.txt und schreibt Sie ins statusArray
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     if (error) throw error;
-
-/*
-    var statusString = data.toString('utf8');
-    var indexKlammerAuf = [];
-    var indexKlammerZu = [];
-            
-    for(var i = 0; i < statusString.length; i++){
-        if(statusString.charAt(i) == '{'){
-            indexKlammerAuf.push(i);
-        } else if(statusString.charAt(i) == '}'){
-            indexKlammerZu.push(i);  
-        }                      
-    }
-
-    for(var i = 0; i < indexKlammerAuf.length; i++){
-        statusArray.push(statusString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
-    }
-*/
     statusArray = JSON.parse(data.toString('utf8'));
 });
 
@@ -143,44 +129,9 @@ app.post('/api/Status', (req, res) => {
 
 });
 
-//var express = require('express');
-//var app = express();
-var bodyParser = require('body-parser');
-var fs = require('fs');
-var cors = require('cors');
-
-var serverPort = 1337;
-
-var typeArray = ['hash-md5','hash-sha256','crack-md5'];
-var tasksArray = [];
-var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
-var counter = 0;
-
-app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-
 //Liest die ServerTasks.txt und schreibt Sie ins tasksArray
 fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     if (error) throw error;
-/*
-    var taskString = data.toString('utf8');
-    var indexKlammerAuf = [];
-    var indexKlammerZu = [];
-            
-    for(var i = 0; i < taskString.length; i++){
-        if(taskString.charAt(i) == '{'){
-            indexKlammerAuf.push(i);
-        } else if(taskString.charAt(i) == '}'){
-            indexKlammerZu.push(i);  
-        }                      
-    }
-
-    for(var i = 0; i < indexKlammerAuf.length; i++){
-         tasksArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
-    }
-*/
     tasksArray = JSON.parse(data.toString('utf8'));
 });
 
