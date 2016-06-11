@@ -62,7 +62,7 @@ app.get('/api/Status/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID '+ id + ' wurde aufgerufen');
+        console.log('GET STATUS ID '+ req.params.id + ' wurde aufgerufen');
     }    
 });
 
@@ -99,9 +99,11 @@ app.post('/api/Status', (req, res) => {
 
                 if (status === true){
                     findID.workload = 1.0;
+                    findID.task = 0;
                     console.log('ID ' + findID + ' wurde gestartet');
                 } else {
                     findID.workload = 0.0;
+                    findID.task = 1;
                     console.log('ID ' + findID + ' wurde gestopt');
                 }
 
@@ -123,7 +125,6 @@ app.post('/api/Status', (req, res) => {
     } else {
             res.send(JSON.stringify({message: 'NOT OK'}));  
     }
-
 });
 
 //Liest die ServerTasks.txt und schreibt Sie ins Tasks Array
@@ -156,7 +157,7 @@ app.get('/api/Tasks/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET TASK ID '+ id + ' wurde aufgerufen');
+        console.log('GET TASK ID '+ req.params.id + ' wurde aufgerufen');
     }    
 });
  
@@ -171,10 +172,10 @@ app.post('/api/Tasks', (req, res) => {
     //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
     if (token !== null){
         if(token === teamToken){
-            console.log('Token akzeptiert');
+            console.log('TASK Token akzeptiert');
             isTeamToken = true;
         } else {
-            console.log('Token angelehnt');
+            console.log('TASK Token angelehnt');
         }
     }
 
@@ -198,7 +199,7 @@ app.post('/api/Tasks', (req, res) => {
 
                //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
                tasksArray[tasksArray.indexOf(id)] = request;
-               console.log('ID ' + req.id +  ' wurde modifiziert');
+               console.log('ID ' + req.body.id +  ' wurde modifiziert');
                counter++;
 
 
