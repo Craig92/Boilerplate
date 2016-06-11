@@ -152,7 +152,7 @@ var cors = require('cors');
 var serverPort = 1337;
 
 var typeArray = ['hash-md5','hash-sha256','crack-md5'];
-var taskArray = [];
+var tasksArray = [];
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
 var counter = 0;
 
@@ -178,7 +178,7 @@ fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     }
 
     for(var i = 0; i < indexKlammerAuf.length; i++){
-         taskArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
+         tasksArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
     }
 */
     tasksArray = JSON.parse(data.toString('utf8'));
@@ -188,8 +188,8 @@ fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
 //Tasks GET REQUEST Liefert ein Object mit allen Einträgen der Tasks Datenbank
 app.get('/api/Tasks', (req, res) => {
 
-    if (taskArray instanceof Array) {
-        res.send(JSON.stringify(taskArray));
+    if (tasksArray instanceof Array) {
+        res.send(JSON.stringify(tasksArray));
     }
 });
 
@@ -197,8 +197,8 @@ app.get('/api/Tasks', (req, res) => {
 //Tasks GET REQUEST Liefert Array des Eintrags aus der Datenbak, wenn ID vorhanden ist.
 app.get('/api/Tasks/:id', (req, res) => {
 
-  if(taskArray instanceof Array) {
-        var id = taskArray.find(function(object) {return object.id == req.params.id;});
+  if(tasksArray instanceof Array) {
+        var id = tasksArray.find(function(object) {return object.id == req.params.id;});
 
         //Gibt den angeforderten Task oder eine Meldung zurück
         if (id !== undefined){
@@ -246,29 +246,29 @@ app.post('/api/Tasks', (req, res) => {
             if (findID !== null){
 
                //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-               taskArray[taskArray.indexOf(id)] = request;
+               tasksArray[tasksArray.indexOf(id)] = request;
                console.log('ID ' + req.id +  ' wurde modifiziert');
                counter++;
 
 
             } else {
                 
-                //Sucht die nächste freie Stelle im taskArray
-                for(var i = 0; i != taskArray.length; i++){
-                    if(taskArray[i].id != i){
+                //Sucht die nächste freie Stelle im tasksArray
+                for(var i = 0; i != tasksArray.length; i++){
+                    if(tasksArray[i].id != i){
                         counter = i;
                     }
 
                     //Fügt den neuen Task am Ende ein
-                    if(counter == taskArray.length){
+                    if(counter == tasksArray.length){
                           req.body.id = counter;
-                          taskArray.push(req.body);
+                          tasksArray.push(req.body);
                           console.log('ID ' + req.body.id + ' wurde erstellt');
                           counter++;
                           
                     //Fügt den neuen Zask an der nächsten freien Stelle ein
                     } else {
-                        taskArray.push(req.body);
+                        tasksArray.push(req.body);
                         console.log('ID ' + req.body.id + ' wurde erstellt');
                         counter++;
                     }
