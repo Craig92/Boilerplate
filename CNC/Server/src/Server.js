@@ -62,7 +62,7 @@ app.get('/api/Status/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID '+ req.params.id + ' wurde aufgerufen');
+        console.log('GET STATUS ID '+ id + ' wurde aufgerufen');
     }    
 });
 
@@ -126,10 +126,11 @@ app.post('/api/Status', (req, res) => {
 
 });
 
-//Liest die ServerTasks.txt und schreibt Sie ins tasksArray
+//Liest die ServerTasks.txt und schreibt Sie ins Tasks Array
 fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     if (error) throw error;
     tasksArray = JSON.parse(data.toString('utf8'));
+    console.log('Tasks Einträge geladen');
 });
 
 
@@ -138,6 +139,7 @@ app.get('/api/Tasks', (req, res) => {
 
     if (tasksArray instanceof Array) {
         res.send(JSON.stringify(tasksArray));
+        console.log('GET TASKS Object wurde aufgerufen');
     }
 });
 
@@ -154,6 +156,7 @@ app.get('/api/Tasks/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
+        console.log('GET TASK ID '+ id + ' wurde aufgerufen');
     }    
 });
  
@@ -214,7 +217,7 @@ app.post('/api/Tasks', (req, res) => {
                           console.log('ID ' + req.body.id + ' wurde erstellt');
                           counter++;
                           
-                    //Fügt den neuen Zask an der nächsten freien Stelle ein
+                    //Fügt den neuen Task an der nächsten freien Stelle ein
                     } else {
                         tasksArray.push(req.body);
                         console.log('ID ' + req.body.id + ' wurde erstellt');
