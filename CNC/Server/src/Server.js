@@ -1,49 +1,44 @@
-const express = require('express');
-const app = express();
+var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
 var fs = require('fs');
 var cors = require('cors');
 
-//Zum Starten des Servers
-app.listen(1337, () => {
-     console.log("Server gestartet...");
-
-     fs.readFile('./ServerStatus.txt', (error, data) => {
-         if (error) throw error
-         statusArray = JSON.parse(data.toString('utf8'));
-         console.log("Status geladen");  
-    });
-
-    fs.readFile('./ServerTasks.txt', (error, data) => {
-         if (error) throw error
-         tasksArray = JSON.parse(data.toString('utf8'));
-         console.log("Tasks geladen");
-    });
-
-});
-
-//var express = require('express');
-// var app = express();
-var bodyParser = require('body-parser');
-var fs = require('fs');
-var cors = require('cors');
-
-var serverPort = 1337;
 var statusArray = [];
+var tasksArray = [];
+
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
 
 var typeArray = ['hash-md5','hash-sha256','crack-md5'];
-var tasksArray = [];
 var counter = 0;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-//Liest die ServerStatus.txt und schreibt Sie ins statusArray
+//Startet den Server auf Port 1337 und schreibt die beiden Textdateien in die entsprechenden Arrays
+app.listen(1337, () => {
+     console.log("Server gestartet...");
+
+     fs.readFile('./ServerStatus.txt', (error, data) => {
+         if (error) throw error
+         statusArray = JSON.parse(data.toString('utf8'));
+         console.log('Status Einträge geladen');  
+    });
+
+    fs.readFile('./ServerTasks.txt', (error, data) => {
+         if (error) throw error
+         tasksArray = JSON.parse(data.toString('utf8'));
+         console.log('Tasks Einträge geladen');
+    });
+
+});
+
+//Liest die ServerStatus.txt und schreibt Sie ins Status Array
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     if (error) throw error;
     statusArray = JSON.parse(data.toString('utf8'));
+    console.log('Status Einträge geladen');
 });
 
 
@@ -52,10 +47,11 @@ app.get('/api/Status', (req, res) => {
    
     if (statusArray instanceof Array) {
         res.send(JSON.stringify(statusArray));
+        console.log('GET STATUS Object wurde aufgerufen');
     }
 });
 
-//STATUS GET REQUEST Liefert Array des Eintrags aus der Datenbank, wenn ID vorhanden ist.
+//STATUS GET REQUEST Liefert ein Array des Eintrags aus der Datenbank, wenn ID vorhanden ist.
 app.get('/api/Status/:id', (req, res) => {
 
     if(statusArray instanceof Array) {
@@ -66,11 +62,12 @@ app.get('/api/Status/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
+        console.log('GET STATUS ID '+ req.params.id + ' wurde aufgerufen');
     }    
 });
 
     
-//Status POST REQUEST Modifiziert Eintrag in Status Datenbank, fall erlaubt.
+//Status POST REQUEST Modifiziert Eintrag in Status Datenbank, falls der Zugriff erlaubt ist.
 app.post('/api/Status', (req, res) => {
     
     var request = req.body;
