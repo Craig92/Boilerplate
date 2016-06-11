@@ -34,13 +34,14 @@ app.listen(1337, () => {
 
 });
 
+/*
 //Liest die ServerStatus.txt und schreibt Sie ins Status Array
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     if (error) throw error;
     statusArray = JSON.parse(data.toString('utf8'));
     console.log('STATUS Einträge geladen');
 });
-/*
+
 //Liest die ServerTasks.txt und schreibt Sie ins Tasks Array
 fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     if (error) throw error;
