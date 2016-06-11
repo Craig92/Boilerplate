@@ -1,3 +1,11 @@
+TODO
+- POST Methoden testen und fixen (Mithilfe des Advanced Rest Client Application https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo/reviews?hl=en-US&utm_source=ARC )
+- kommentieren des Programmcodes
+- unnötiger Code entfernen
+- NICE TO HAVE: Redundanz durch einzelne Methoden lösen (TokenPrüfung, Write und Read)
+- NICE TO HAVE: CSS Trasitions aus Meilenstein 2 einbauen 
+- NICE TO HAVE: DELETE Funktion integrieren für Tasks
+
 Hier eine Anleitung um mithilfe von Visual Studio Code an unserem GitHub Projekt zu arbeiten:
 
 Benötigte Programme:
@@ -22,10 +30,3 @@ Anmerkung: Unter dem angegebenen Verzeichnis sollten nun die Dateien herutergela
 Anmerkungen: Bevor man anfängt zu arbeiten sollte man ersteinmal pullen um die aktuellen Dateien zu haben
 
 Wichtig: darauf achten, dass in "master" gepusht wird !!!
-
-
-TODO
-- Server starten implementieren
-- eventuell Anpassungen an GET und POST Methoden nötig
-- kommentieren
-- NICE TO HAVE: CSS Trasitions aus Meilenstein 2 einbauen 

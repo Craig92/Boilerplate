@@ -69,7 +69,7 @@ app.get('/api/Status/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID '+ new Number(req.params.id + 0) + ' wurde aufgerufen');
+        console.log('GET STATUS ID '+ new Number(req.params.id + '') + ' wurde aufgerufen');
     }    
 });
 
@@ -84,10 +84,10 @@ app.post('/api/Status', (req, res) => {
     //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
     if (token !== null){
         if(token === teamToken){
-            console.log('Token akzeptiert');
+            console.log('STATUS Token akzeptiert');
             isTeamToken = true;
         } else {
-            console.log('Token angelehnt');
+            console.log('STATUS Token angelehnt');
         }
     }
 
@@ -156,7 +156,7 @@ app.get('/api/Tasks/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET TASK ID '+ new Number(req.params.id)  + ' wurde aufgerufen');
+        console.log('GET TASK ID '+ new Number(req.params.id + '')  + ' wurde aufgerufen');
     }    
 });
  
@@ -187,6 +187,8 @@ app.post('/api/Tasks', (req, res) => {
         });
 
         if(findType !== null){
+
+            console.log('TASK Type gültig');
             var id = req.body.id;
 
             //Prüft, ob der übergebene Tasks eine gültige ID hat
@@ -200,7 +202,6 @@ app.post('/api/Tasks', (req, res) => {
                tasksArray[tasksArray.indexOf(id)] = request;
                console.log('ID ' + req.body.id +  ' wurde modifiziert');
                counter++;
-
 
             } else {
                 
@@ -255,10 +256,10 @@ app.delete('/api/Tasks/:id', (req, res) => {
     //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
     if (token !== null){
         if(token === teamToken){
-            console.log('TASK Token akzeptiert');
+            console.log('DELETE Token akzeptiert');
             isTeamToken = true;
         } else {
-            console.log('TASK Token abgelehnt');
+            console.log('DELETE Token abgelehnt');
         }
 
         if(isTeamToken){
@@ -271,6 +272,7 @@ app.delete('/api/Tasks/:id', (req, res) => {
 
             if (findID !== null){
 
+                console.log('DELETE Gültige ID');
                 tasksArray.slice(findID,1);
 
                 //Schreibt die Änderungen in die Datei
