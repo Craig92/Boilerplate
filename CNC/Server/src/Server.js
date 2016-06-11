@@ -18,18 +18,18 @@ app.use(bodyParser.json());
 
 //Startet den Server auf Port 1337 und schreibt die beiden Textdateien in die entsprechenden Arrays
 app.listen(1337, () => {
-     console.log("Server gestartet...");
+     console.log("SERVER gestartet...");
 
      fs.readFile('./ServerStatus.txt', (error, data) => {
          if (error) throw error
          statusArray = JSON.parse(data.toString('utf8'));
-         console.log('Status Einträge geladen');  
+         console.log('SERVER Status Einträge geladen');  
     });
 
     fs.readFile('./ServerTasks.txt', (error, data) => {
          if (error) throw error
          tasksArray = JSON.parse(data.toString('utf8'));
-         console.log('Tasks Einträge geladen');
+         console.log('SERVER Tasks Einträge geladen');
     });
 
 });
@@ -38,7 +38,7 @@ app.listen(1337, () => {
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     if (error) throw error;
     statusArray = JSON.parse(data.toString('utf8'));
-    console.log('Status Einträge geladen');
+    console.log('STATUS Einträge geladen');
 });
 
 
@@ -62,7 +62,7 @@ app.get('/api/Status/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID '+ req.params.id + ' wurde aufgerufen');
+        console.log('GET STATUS ID '+ new Number(req.params.id)  + ' wurde aufgerufen');
     }    
 });
 
@@ -157,7 +157,7 @@ app.get('/api/Tasks/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET TASK ID '+ req.params.id + ' wurde aufgerufen');
+        console.log('GET TASK ID '+ new Number(req.params.id)  + ' wurde aufgerufen');
     }    
 });
  
@@ -175,7 +175,7 @@ app.post('/api/Tasks', (req, res) => {
             console.log('TASK Token akzeptiert');
             isTeamToken = true;
         } else {
-            console.log('TASK Token angelehnt');
+            console.log('TASK Token abgelehnt');
         }
     }
 

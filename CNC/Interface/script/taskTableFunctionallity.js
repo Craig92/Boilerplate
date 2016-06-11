@@ -30,6 +30,17 @@ var initializeTask = function() {
                 code += '</tr>';
             }            
             content.innerHTML = code;     
+
+            //Erzeugt die "Delete"-Buttons mit den entsprechenden Zustand.
+            for (var d = 0, dl = data.length; d < dl; d++) {
+                var entry = data[d];
+                var buttonID = entry.id;
+
+                document.getElementById(buttonID).innerHTML = "Löschen";
+                document.getElementById(buttonID).style.background = "red";
+                document.getElementById(buttonID).style.color = "white";
+
+            }
         } else {
             content.innerHTML = 'LOADING ERROR :(';
         }
