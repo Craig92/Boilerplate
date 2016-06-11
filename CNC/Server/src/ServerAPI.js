@@ -11,13 +11,13 @@ app.listen(1337, () => {
      fs.readFile('./ServerStatus.txt', (error, data) => {
          if (error) throw error
          statusArray = JSON.parse(data.toString('utf8'));
-         colsole.log("Status geladen");  
+         console.log("Status geladen");  
     });
 
     fs.readFile('./ServerTasks.txt', (error, data) => {
          if (error) throw error
          tasksArray = JSON.parse(data.toString('utf8'));
-         colsole.log("Tasks geladen");
+         console.log("Tasks geladen");
     });
 
 });
