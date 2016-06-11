@@ -103,6 +103,15 @@ var deleteTask = function(id) {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
 
-    alert("Der Auftrag ID " + id + " wurde gelöscht");
-    xhr.send(JSON.stringify(id)); 
+    xhr.onload = function(){
+    var entry = xhr.response;
+            if (entry !== null && entry.message != "OK"){
+            alert("Der Auftrag ID " + id + " wurde gelöscht");
+            } else {
+                alert("Der Auftrag ID " + id + " wurde NICHT gelöscht");
+            }
+    };
+
+    xhr.send(JSON.stringify(id));
+    initializeTask();   
 };

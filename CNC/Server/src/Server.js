@@ -244,3 +244,50 @@ app.post('/api/Tasks', (req, res) => {
     }
 
 });
+
+//Löscht Eintrag in der Task, falls vorhanden.
+app.delete('/api/Tasks/:id', (req, res) => {
+    
+    var request = req.body;
+    var token = req.get('Token');
+    var isTeamToken = false;
+
+    //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
+    if (token !== null){
+        if(token === teamToken){
+            console.log('TASK Token akzeptiert');
+            isTeamToken = true;
+        } else {
+            console.log('TASK Token abgelehnt');
+        }
+
+        if(isTeamToken){
+            var id = req.body.id;
+
+            //Prüft, ob der übergebene Tasks eine gültige ID hat
+            var findID = tasksArray.find(function(object){
+                return object.id == id;
+            });
+
+            if (findID !== null){
+
+                tasksArray.slice(findID,1);
+
+                //Schreibt die Änderungen in die Datei
+                fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray),function(error){
+                    if(error) throw error;
+                    console.log('Tasks Einträge wurden modifiziert');
+
+                    res.send(JSON.stringify({message:'OK'}));
+                });
+        } else {
+            res.send(JSON.stringify({message: 'NOT OK'}));  
+        }
+
+    } else {
+        res.send(JSON.stringify({message: 'NOT OK'}));  
+    }
+    } else {
+        res.send(JSON.stringify({message: 'NOT OK'})); 
+    }
+});
