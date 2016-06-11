@@ -19,7 +19,7 @@ app.use(parser.json());
 //Liest die ServerTasks.txt und schreibt Sie ins tasksArray
 fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     if (error) throw error;
-
+/*
     var taskString = data.toString('utf8');
     var indexKlammerAuf = [];
     var indexKlammerZu = [];
@@ -35,8 +35,8 @@ fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     for(var i = 0; i < indexKlammerAuf.length; i++){
          taskArray.push(taskString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
     }
-
-    tasksArray = JSON.parse(data.toString());
+*/
+    tasksArray = JSON.parse(data.toString('utf8'));
 });
 
 

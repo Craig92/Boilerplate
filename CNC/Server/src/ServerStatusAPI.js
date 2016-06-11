@@ -16,6 +16,7 @@ app.use(parser.json());
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     if (error) throw error;
 
+/*
     var statusString = data.toString('utf8');
     var indexKlammerAuf = [];
     var indexKlammerZu = [];
@@ -31,8 +32,8 @@ fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     for(var i = 0; i < indexKlammerAuf.length; i++){
         statusArray.push(statusString.slice(indexKlammerAuf[i],indexKlammerZu[i]));
     }
-
-    statusArray = JSON.parse(data.toString());
+*/
+    statusArray = JSON.parse(data.toString('utf8'));
 });
 
 
