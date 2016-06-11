@@ -10,7 +10,7 @@ var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(parser.json());
+app.use(bodyParser.json());
 
 //Liest die ServerStatus.txt und schreibt Sie ins statusArray
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {

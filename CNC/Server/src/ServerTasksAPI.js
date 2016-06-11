@@ -13,7 +13,7 @@ var counter = 0;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(parser.json());
+app.use(bodyParser.json());
 
 
 //Liest die ServerTasks.txt und schreibt Sie ins tasksArray
