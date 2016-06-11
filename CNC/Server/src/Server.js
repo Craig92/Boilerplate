@@ -40,7 +40,14 @@ fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     statusArray = JSON.parse(data.toString('utf8'));
     console.log('STATUS Einträge geladen');
 });
-
+/*
+//Liest die ServerTasks.txt und schreibt Sie ins Tasks Array
+fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
+    if (error) throw error;
+    tasksArray = JSON.parse(data.toString('utf8'));
+    console.log('TASKS Einträge geladen');
+});
+*/
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
@@ -62,7 +69,7 @@ app.get('/api/Status/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID '+ new Number(req.params.id)  + ' wurde aufgerufen');
+        console.log('GET STATUS ID '+ new Number(req.params.id + 0) + ' wurde aufgerufen');
     }    
 });
 
@@ -126,14 +133,6 @@ app.post('/api/Status', (req, res) => {
             res.send(JSON.stringify({message: 'NOT OK'}));  
     }
 });
-
-//Liest die ServerTasks.txt und schreibt Sie ins Tasks Array
-fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
-    if (error) throw error;
-    tasksArray = JSON.parse(data.toString('utf8'));
-    console.log('Tasks Einträge geladen');
-});
-
 
 //Tasks GET REQUEST Liefert ein Object mit allen Einträgen der Tasks Datenbank
 app.get('/api/Tasks', (req, res) => {

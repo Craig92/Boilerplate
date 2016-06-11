@@ -89,3 +89,20 @@ var sendTask = function(id, type, dataInput) {
     xhr.send(JSON.stringify(data));
     initializeTask();   
 };
+
+/**
+ * Senden an den Server den zu löschenden Task.
+ */
+var deleteTask = function(id) {
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('DELETE', 'http://localhost:1337/api/Tasks');
+//    xhr.open('DELETE', 'http://botnet.artificial.engineering:8080/api/Tasks');
+    xhr.responseType = 'json';
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
+
+    alert("Der Auftrag ID " + id + " wurde gelöscht");
+    xhr.send(JSON.stringify(id)); 
+};
