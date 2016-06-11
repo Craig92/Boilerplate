@@ -97,6 +97,8 @@ app.post('/api/Status', (req, res) => {
                     findID.workload = 0.0;
                     console.log('ID ' + findID + ' wurde gestopt');
                 }
+
+                //Schreibt Änderungen zurück in Datei.
                 fs.writeFile('./ServerStatus.txt', JSON.stringify(statusArray),function(error){
                     if(error) throw error;
                     console.log('Status Einträge wurden modifiziert');

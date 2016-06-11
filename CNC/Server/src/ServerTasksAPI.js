@@ -114,12 +114,14 @@ app.post('/api/Tasks', (req, res) => {
                         counter = i;
                     }
 
-                    //Fügt den neuen Task entsprechend ein
+                    //Fügt den neuen Task am Ende ein
                     if(counter == taskArray.length){
                           req.body.id = counter;
                           taskArray.push(req.body);
                           console.log('ID ' + req.body.id + ' wurde erstellt');
                           counter++;
+                          
+                    //Fügt den neuen Zask an der nächsten freien Stelle ein
                     } else {
                         taskArray.push(req.body);
                         console.log('ID ' + req.body.id + ' wurde erstellt');
