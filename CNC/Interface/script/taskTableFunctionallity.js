@@ -26,7 +26,7 @@ var initializeTask = function () {
                 code += '<td>' + entry.type + '</td>';
                 code += '<td>' + entry.data.input + '</td>';
                 code += '<td>' + entry.data.output + '</td>';
-                code += '<td><button class="delete-button" id="' + entry.id + '" "></button></td>';
+                code += '<td><button class="delete-button" id="' + entry.id + '" onClick="deleteTask(' + entry.id + ');"></button></td>';
                 code += '</tr>';
             }
             content.innerHTML = code;
