@@ -107,11 +107,11 @@ app.post('/api/Status', (req, res) => {
                 if (req.body.status === true) {
                     findID.workload = 0.5;
                     findID.task = 0;
-                    console.log('STATUS POST ID ' + findID + ' wurde gestopt');
+                    console.log('STATUS POST ID ' + findID + ' wurde gestartet');
                 } else {
                     findID.workload = 0.0;
                     findID.task = 1;
-                    console.log('STATUS POST ID ' + findID + ' wurde gestartet');
+                    console.log('STATUS POST ID ' + findID + ' wurde gestopt');
                 }
 
                 //Schreibt Änderungen zurück in Status Datei.
@@ -219,10 +219,8 @@ app.post('/api/Tasks', (req, res) => {
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
                 console.log('Tasks Einträge wurden modifiziert');
-
-                res.send(JSON.stringify({ message: 'OK' }));
             });
-
+             res.send(JSON.stringify({ message: 'OK' }));
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }

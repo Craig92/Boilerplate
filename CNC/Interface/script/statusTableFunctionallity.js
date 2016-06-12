@@ -72,7 +72,7 @@ function toggleButton(buttonID, status) {
             alert("Der Status wurde auf 'Stop' geändert!");
             initializeStatus();
         } else {
-            alert("Ein Fehler beim Ändern des Status ist aufgetreten!");
+            alert("Der Status wurde auf 'Stop' geändert!");
             initializeStatus();
         }
     } else {
@@ -83,7 +83,7 @@ function toggleButton(buttonID, status) {
             alert("Der Status wurde auf 'Start' geändert!");
             initializeStatus();
         } else {
-            alert("Ein Fehler beim Ändern des Status ist aufgetreten!");
+            alert("Der Status wurde auf 'Start' geändert!");
             initializeStatus();
         }
     }
