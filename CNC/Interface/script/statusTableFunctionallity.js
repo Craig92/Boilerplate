@@ -1,21 +1,21 @@
 /**
  * Holt die Status Informationen von BotnetServer und fügt die Daten in eine Tabelle ein.
  */
-var initializeStatus = function() {
+var initializeStatus = function () {
 
     var xhr = new XMLHttpRequest();
     var content = document.querySelector('table#status-table tbody');
 
     xhr.open('GET', 'http://localhost:1337/api/Status');
-//    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
+    //    xhr.open('GET', 'http://botnet.artificial.engineering:8080/api/Status');
     xhr.responseType = 'json';
-    
-    xhr.onload = function() {
-        
+
+    xhr.onload = function () {
+
         var data = xhr.response;
-        
+
         if (data instanceof Array) {
-            
+
             var code = '';
 
             //Erzeugt die Tabelle mit den Einträgen.
@@ -92,12 +92,12 @@ function toggleButton(buttonID, status) {
 /**
  * Senden an den Server den geänderten Zusand des Buttons.
  */
-var sendStatus = function(id, status) {
+var sendStatus = function (id, status) {
 
     var xhr = new XMLHttpRequest();
 
     xhr.open('POST', 'http://localhost:1337/api/Status');
-//    xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Status');
+    //    xhr.open('POST', 'http://botnet.artificial.engineering:8080/api/Status');
     xhr.responseType = 'json';
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
@@ -105,6 +105,6 @@ var sendStatus = function(id, status) {
     var data = {
         "id": parseInt(id, 10),
         "status": status
-    };  
-    xhr.send(JSON.stringify(data)); 
+    };
+    xhr.send(JSON.stringify(data));
 };
