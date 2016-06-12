@@ -83,7 +83,7 @@ app.get('/api/Status/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID ' + new Number('#' + req.params.id) + ' wurde aufgerufen');
+        console.log('GET STATUS ID ' +  req.params.id + ' wurde aufgerufen');
     }
 });
 
@@ -107,11 +107,11 @@ app.post('/api/Status', (req, res) => {
                 if (req.body.status === true) {
                     findID.workload = 0.5;
                     findID.task = 0;
-                    console.log('STATUS POST ID ' + new Number('#' + findID) + ' wurde gestartet');
+                    console.log('STATUS POST ID ' + findID + ' wurde gestartet');
                 } else {
                     findID.workload = 0.0;
                     findID.task = 1;
-                    console.log('STATUS POST ID ' + new Number('#' + findID) + ' wurde gestopt');
+                    console.log('STATUS POST ID ' + findID + ' wurde gestopt');
                 }
 
                 //Schreibt Änderungen zurück in Status Datei.
@@ -158,7 +158,7 @@ app.get('/api/Tasks/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET TASK ID ' + new Number('#' + req.params.id) + ' wurde aufgerufen');
+        console.log('GET TASK ID ' + req.params.id + ' wurde aufgerufen');
     }
 });
 
@@ -203,13 +203,13 @@ app.post('/api/Tasks', (req, res) => {
                     if (counter == tasksArray.length) {
                         req.body.id = counter;
                         tasksArray.push(req.body);
-                        console.log('TASK POST ID ' + new Number(req.body.id) + ' wurde erstellt');
+                        console.log('TASK POST ID ' + req.body.id + ' wurde erstellt');
                         counter++;
 
                         //Fügt den neuen Task an der nächsten freien Stelle ein
                     } else {
                         tasksArray.push(req.body);
-                        console.log('TASK POST ID ' + new Number(req.body.id) + ' wurde erstellt');
+                        console.log('TASK POST ID ' + req.body.id + ' wurde erstellt');
                         counter++;
                     }
                 }

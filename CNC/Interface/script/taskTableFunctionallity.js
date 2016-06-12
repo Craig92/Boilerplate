@@ -35,6 +35,7 @@ var initializeTask = function () {
             for (var d = 0, dl = data.length; d < dl; d++) {
                 var entry = data[d];
                 var buttonID = entry.id;
+                console.log(buttonID);
 
                 document.getElementById(buttonID).innerHTML = "Löschen";
                 document.getElementById(buttonID).style.background = "red";
