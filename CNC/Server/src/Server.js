@@ -33,7 +33,7 @@ app.listen(1337, () => {
     });
 
 });
-
+/*
 //Liest die ServerStatus.txt und schreibt Sie ins Status Array
 fs.readFile('./ServerStatus.txt','utf8',(error, data) => {
     if (error) throw error;
@@ -47,7 +47,7 @@ fs.readFile('./ServerTasks.txt','utf8',(error, data) => {
     tasksArray = JSON.parse(data.toString('utf8'));
     console.log('TASKS Einträge geladen');
 });
-
+*/
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
