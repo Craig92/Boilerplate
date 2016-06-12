@@ -107,11 +107,11 @@ app.post('/api/Status', (req, res) => {
                 if (req.body.status === true) {
                     findID.workload = 0.5;
                     findID.task = 0;
-                    console.log('STATUS POST ID ' + findID + ' wurde gestartet');
+                    console.log('STATUS POST ID ' + findID + ' wurde gestopt');
                 } else {
                     findID.workload = 0.0;
                     findID.task = 1;
-                    console.log('STATUS POST ID ' + findID + ' wurde gestopt');
+                    console.log('STATUS POST ID ' + findID + ' wurde gestartet');
                 }
 
                 //Schreibt Änderungen zurück in Status Datei.
@@ -187,7 +187,7 @@ app.post('/api/Tasks', (req, res) => {
             if (findID !== null) {
 
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                tasksArray[tasksArray.indexOf(id)] = request;
+                tasksArray[tasksArray.indexOf(req.body.id)] = request;
                 console.log('ID ' + req.body.id + ' wurde modifiziert');
                 counter++;
 
@@ -195,7 +195,7 @@ app.post('/api/Tasks', (req, res) => {
 
                 //Sucht die nächste freie Stelle im tasksArray
                 for (var i = 0; i != tasksArray.length; i++) {
-                    if (tasksArray[i].id != i) {
+                    if (tasksArray[i].req.body.id != i) {
                         counter = i;
                     }
 
