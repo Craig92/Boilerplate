@@ -23,13 +23,13 @@ app.listen(1337, () => {
     fs.readFile('./ServerStatus.txt', (error, data) => {
         if (error) throw error
         statusArray = JSON.parse(data.toString('utf8'));
-        console.log('SERVER Status Einträge geladen');
+        console.log('SERVER STATUS Einträge geladen');
     });
 
     fs.readFile('./ServerTasks.txt', (error, data) => {
         if (error) throw error
         tasksArray = JSON.parse(data.toString('utf8'));
-        console.log('SERVER Tasks Einträge geladen');
+        console.log('SERVER TASKS Einträge geladen');
     });
 
 });
@@ -41,12 +41,24 @@ fs.readFile('./ServerStatus.txt', 'utf8', (error, data) => {
     console.log('STATUS Einträge geladen');
 });
 
+
 //Liest die ServerTasks.txt und schreibt Sie ins Tasks Array
 fs.readFile('./ServerTasks.txt', 'utf8', (error, data) => {
     if (error) throw error;
     tasksArray = JSON.parse(data.toString('utf8'));
     console.log('TASKS Einträge geladen');
 });
+
+//Prüft, ob der übergebene Token gültig ist
+var isTeamToken = function (token) {
+    if (teamToken === token) {
+        console.log('Token akzeptiert');
+        return true;
+    } else {
+        console.log('Token angelehnt');
+        return false;
+    }
+};
 
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
@@ -62,14 +74,16 @@ app.get('/api/Status', (req, res) => {
 app.get('/api/Status/:id', (req, res) => {
 
     if (statusArray instanceof Array) {
-        var id = statusArray.find(function (object) { return object.id == req.params.id; });
+        var id = statusArray.find(function (object) {
+            return object.id == req.params.id;
+        });
 
         if (id !== undefined) {
             res.send(JSON.stringify(id));
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID ' + new Number(req.params.id + '') + ' wurde aufgerufen');
+        console.log('GET STATUS ID ' + new Number('#' + req.params.id) + ' wurde aufgerufen');
     }
 });
 
@@ -77,47 +91,33 @@ app.get('/api/Status/:id', (req, res) => {
 //Status POST REQUEST Modifiziert Eintrag in Status Datenbank, falls der Zugriff erlaubt ist.
 app.post('/api/Status', (req, res) => {
 
-    var request = req.body;
     var token = req.get('Token');
-    var isTeamToken = false;
 
-    //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
-    if (token !== null) {
-        if (token === teamToken) {
-            console.log('STATUS Token akzeptiert');
-            isTeamToken = true;
-        } else {
-            console.log('STATUS Token angelehnt');
-        }
-    }
-
-    if (isTeamToken) {
-        var id = req.body.id;
+    if (isTeamToken(token)) {
 
         //Prüft, ob der übergebene Status eine gültige ID hat
         var findID = statusArray.find(function (object) {
-            return object.id == id;
+            return object.id == req.body.id;;
         });
 
         if (findID !== null) {
-            var status = req.body.status;
 
-            if (status !== null) {
+            if (req.body.status !== null) {
 
-                if (status === true) {
-                    findID.workload = 1.0;
+                if (req.body.status === true) {
+                    findID.workload = 0.5;
                     findID.task = 0;
-                    console.log('ID ' + findID + ' wurde gestartet');
+                    console.log('STATUS POST ID ' + new Number('#' + findID) + ' wurde gestartet');
                 } else {
                     findID.workload = 0.0;
                     findID.task = 1;
-                    console.log('ID ' + findID + ' wurde gestopt');
+                    console.log('STATUS POST ID ' + new Number('#' + findID) + ' wurde gestopt');
                 }
 
-                //Schreibt Änderungen zurück in Datei.
+                //Schreibt Änderungen zurück in Status Datei.
                 fs.writeFile('./ServerStatus.txt', JSON.stringify(statusArray), function (error) {
                     if (error) throw error;
-                    console.log('Status Einträge wurden modifiziert');
+                    console.log('STATUS ARRAY wurden modifiziert');
 
                     res.send(JSON.stringify({ message: 'OK' }));
                 });
@@ -148,7 +148,9 @@ app.get('/api/Tasks', (req, res) => {
 app.get('/api/Tasks/:id', (req, res) => {
 
     if (tasksArray instanceof Array) {
-        var id = tasksArray.find(function (object) { return object.id == req.params.id; });
+        var id = tasksArray.find(function (object) {
+            return object.id == req.params.id;
+        });
 
         //Gibt den angeforderten Task oder eine Meldung zurück
         if (id !== undefined) {
@@ -156,7 +158,7 @@ app.get('/api/Tasks/:id', (req, res) => {
         } else {
             res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
         }
-        console.log('GET TASK ID ' + new Number(req.params.id + '') + ' wurde aufgerufen');
+        console.log('GET TASK ID ' + new Number('#' + req.params.id) + ' wurde aufgerufen');
     }
 });
 
@@ -164,36 +166,22 @@ app.get('/api/Tasks/:id', (req, res) => {
 //Tasks POST REQUEST Modifiziert Eintrag in Tasks Datenbank, fall erlaubt.
 app.post('/api/Tasks', (req, res) => {
 
-    var request = req.body;
     var token = req.get('Token');
-    var isTeamToken = false;
 
-    //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
-    if (token !== null) {
-        if (token === teamToken) {
-            console.log('TASK Token akzeptiert');
-            isTeamToken = true;
-        } else {
-            console.log('TASK Token abgelehnt');
-        }
-    }
-
-    if (isTeamToken) {
-        var type = req.body.type;
+    if (isTeamToken(token)) {
 
         //Prüft, ob der übergebene Tasks einen gültiger Type hat 
         var findType = tasksArray.find(function (object) {
-            return object.type == type;
+            return object.type == req.body.type;
         });
 
         if (findType !== null) {
 
             console.log('TASK Type gültig');
-            var id = req.body.id;
 
             //Prüft, ob der übergebene Tasks eine gültige ID hat
             var findID = tasksArray.find(function (object) {
-                return object.id == id;
+                return object.id == req.body.id;
             });
 
             if (findID !== null) {
@@ -215,13 +203,13 @@ app.post('/api/Tasks', (req, res) => {
                     if (counter == tasksArray.length) {
                         req.body.id = counter;
                         tasksArray.push(req.body);
-                        console.log('ID ' + req.body.id + ' wurde erstellt');
+                        console.log('TASK POST ID ' + new Number(req.body.id) + ' wurde erstellt');
                         counter++;
 
                         //Fügt den neuen Task an der nächsten freien Stelle ein
                     } else {
                         tasksArray.push(req.body);
-                        console.log('ID ' + req.body.id + ' wurde erstellt');
+                        console.log('TASK POST ID ' + new Number(req.body.id) + ' wurde erstellt');
                         counter++;
                     }
                 }
@@ -249,46 +237,31 @@ app.post('/api/Tasks', (req, res) => {
 //Löscht Eintrag in der Task, falls vorhanden.
 app.delete('/api/Tasks/:id', (req, res) => {
 
-    var request = req.body;
     var token = req.get('Token');
-    var isTeamToken = false;
 
-    //Prüft, ob der übergebene Token mit dem TeamToken übereinstimmt.
-    if (token !== null) {
-        if (token === teamToken) {
-            console.log('DELETE Token akzeptiert');
-            isTeamToken = true;
-        } else {
-            console.log('DELETE Token abgelehnt');
-        }
+    if (isTeamToken(token)) {
 
-        if (isTeamToken) {
-            var id = req.body.id;
+        //Prüft, ob der übergebene Tasks eine gültige ID hat
+        var findID = tasksArray.find(function (object) {
+            return object.id == req.body.id;
+        });
 
-            //Prüft, ob der übergebene Tasks eine gültige ID hat
-            var findID = tasksArray.find(function (object) {
-                return object.id == id;
+        if (findID !== null) {
+
+            console.log('DELETE Gültige ID übergeben');
+            tasksArray.slice(findID, 1);
+
+            //Schreibt die Änderungen in die Datei
+            fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
+                if (error) throw error;
+                console.log('TASKS Einträge wurden modifiziert');
+
+                res.send(JSON.stringify({ message: 'OK' }));
             });
-
-            if (findID !== null) {
-
-                console.log('DELETE Gültige ID übergeben');
-                tasksArray.slice(findID, 1);
-
-                //Schreibt die Änderungen in die Datei
-                fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
-                    if (error) throw error;
-                    console.log('Tasks Einträge wurden modifiziert');
-
-                    res.send(JSON.stringify({ message: 'OK' }));
-                });
-            } else {
-                res.send(JSON.stringify({ message: 'NOT OK' }));
-            }
-
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
+
     } else {
         res.send(JSON.stringify({ message: 'NOT OK' }));
     }
