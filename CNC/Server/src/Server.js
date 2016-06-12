@@ -60,6 +60,26 @@ var isTeamToken = function (token) {
     }
 };
 
+//Sucht die nächste Freie Stelle im Task Array
+var searchFreePositionTask = function () {
+    var freePosition;
+    var isSame;
+
+    //Geht über das Task Array und prüft ob die ID an der Stelle mit der Stellenpostion übereinstimmt
+    for (var i = 0; i != tasksArray.length; i++) {
+        isSame = tasksArray.find(function (object) {
+            return object.id == i;
+        });
+
+        //Wenn nicht gleich ist wird die Position als ID übergeben.
+        if (isSame === false) {
+            return freePosition = i;
+        }
+    }
+    return freePosition = counter;
+};
+
+
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
@@ -81,9 +101,9 @@ app.get('/api/Status/:id', (req, res) => {
         if (id !== undefined) {
             res.send(JSON.stringify(id));
         } else {
-            res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
+            res.send(JSON.stringify('ID wurde nicht gefunden'));
         }
-        console.log('GET STATUS ID ' +  req.params.id + ' wurde aufgerufen');
+        console.log('GET STATUS ID wurde aufgerufen');
     }
 });
 
@@ -107,11 +127,11 @@ app.post('/api/Status', (req, res) => {
                 if (req.body.status === true) {
                     findID.workload = 0.5;
                     findID.task = 0;
-                    console.log('STATUS POST ID ' + findID + ' wurde gestartet');
+                    console.log('STATUS POST ID wurde gestartet');
                 } else {
                     findID.workload = 0.0;
                     findID.task = 1;
-                    console.log('STATUS POST ID ' + findID + ' wurde gestopt');
+                    console.log('STATUS POST ID wurde gestopt');
                 }
 
                 //Schreibt Änderungen zurück in Status Datei.
@@ -156,9 +176,9 @@ app.get('/api/Tasks/:id', (req, res) => {
         if (id !== undefined) {
             res.send(JSON.stringify(id));
         } else {
-            res.send(JSON.stringify('ID ' + req.params.id + ' wurde nicht gefunden'));
+            res.send(JSON.stringify('ID wurde nicht gefunden'));
         }
-        console.log('GET TASK ID ' + req.params.id + ' wurde aufgerufen');
+        console.log('GET TASK ID wurde aufgerufen');
     }
 });
 
@@ -179,39 +199,37 @@ app.post('/api/Tasks', (req, res) => {
 
             console.log('TASK Type gültig');
 
-            //Prüft, ob der übergebene Tasks eine gültige ID hat
+            //Prüft, ob eine ID übergeben wurde und weist eine zu, falls keine übergeben wurde
+            if (req.body.id === undefined) {
+
+                var id = searchFreePositionTask();
+
+            }
+
+            //Sucht nach Eintrag zu der übergebeben ID
             var findID = tasksArray.find(function (object) {
-                return object.id == req.body.id;
+                return object.id == req.body.id;;
             });
 
             if (findID !== null) {
-
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                tasksArray[tasksArray.indexOf(req.body.id)] = request;
-                console.log('ID ' + req.body.id + ' wurde modifiziert');
+                tasksArray[tasksArray.indexOf(findID)] = request;
+                console.log('ID  wurde modifiziert');
                 counter++;
-
             } else {
 
-                //Sucht die nächste freie Stelle im tasksArray
-                for (var i = 0; i != tasksArray.length; i++) {
-                    if (tasksArray[i].req.body.id != i) {
-                        counter = i;
-                    }
+                //Fügt den neuen Task am Ende ein
+                if (findID == tasksArray.length) {
+                    req.body.id = counter;
+                    tasksArray.push(req.body);
+                    console.log('TASK POST ID ' + findID + ' wurde erstellt');
+                    counter++;
 
-                    //Fügt den neuen Task am Ende ein
-                    if (counter == tasksArray.length) {
-                        req.body.id = counter;
-                        tasksArray.push(req.body);
-                        console.log('TASK POST ID ' + req.body.id + ' wurde erstellt');
-                        counter++;
-
-                        //Fügt den neuen Task an der nächsten freien Stelle ein
-                    } else {
-                        tasksArray.push(req.body);
-                        console.log('TASK POST ID ' + req.body.id + ' wurde erstellt');
-                        counter++;
-                    }
+                    //Fügt den neuen Task an der nächsten freien Stelle ein
+                } else {
+                    tasksArray.push(req.body);
+                    console.log('TASK POST ID ' + findID + ' wurde erstellt');
+                    counter++;
                 }
             }
 
@@ -220,7 +238,7 @@ app.post('/api/Tasks', (req, res) => {
                 if (error) throw error;
                 console.log('Tasks Einträge wurden modifiziert');
             });
-             res.send(JSON.stringify({ message: 'OK' }));
+            res.send(JSON.stringify({ message: 'OK' }));
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
