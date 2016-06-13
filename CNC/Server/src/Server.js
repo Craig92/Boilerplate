@@ -216,7 +216,7 @@ app.post('/api/Tasks', (req, res) => {
 
             console.log('TASK Type ist gültig');
 
-            if(freeElement(req, taskArray) != 0){
+            if(freeElement(req, tasksArray) != 0){
                 tasksArray.forEach((object) =>{
                     if (object.id == req.body.id) {
                         object.type = req.body.type;
