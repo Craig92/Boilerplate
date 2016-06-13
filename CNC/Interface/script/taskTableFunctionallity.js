@@ -98,7 +98,7 @@ var deleteTask = function (id) {
 
     var xhr = new XMLHttpRequest();
 
-    xhr.open('DELETE', 'http://localhost:1337/api/Tasks');
+    xhr.open('DELETE', 'http://localhost:1337/api/Tasks/:id');
     //    xhr.open('DELETE', 'http://botnet.artificial.engineering:8080/api/Tasks');
     xhr.responseType = 'json';
     xhr.setRequestHeader('Content-Type', 'application/json');

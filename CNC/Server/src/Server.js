@@ -192,7 +192,7 @@ app.post('/api/Tasks', (req, res) => {
         if (findType !== null) {
 
             console.log('TASK Type ist gültig');
-
+            console.log('p = ' + searchFreePositionTask(req));
             if (searchFreePositionTask(req) != 0) {
                 tasksArray.forEach((object) => {
                     if (object.id == req.body.id) {
