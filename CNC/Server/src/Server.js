@@ -203,14 +203,14 @@ app.post('/api/Tasks', (req, res) => {
                 req.body.id = searchFreePositionTask();
                 console.log('TASK POST Freie Stelle gefunden');
             }
-
+            //TODO
             //Sucht nach Eintrag zu der übergebeben ID
             var findID = tasksArray.find(function (object) {
                 return object.id == req.body.id;
             });
             console.log('TASK POST Eintrag zur ID gefunden');
             console.log('FindID :' + findID);
-            if (findID !== null) {
+            if (findID !== undefined) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
                 tasksArray[tasksArray.indexOf(findID)] = req;
                 console.log('TASK POST ID wurde modifiziert');
