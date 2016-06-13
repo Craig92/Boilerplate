@@ -200,15 +200,16 @@ app.post('/api/Tasks', (req, res) => {
             //Prüft, ob eine ID übergeben wurde und weist eine zu, falls keine übergeben wurde
             if (req.body.id === undefined) {
 
-                var id = searchFreePositionTask();
+                req.body.id = searchFreePositionTask();
                 console.log('TASK POST Freie Stelle gefunden');
             }
 
             //Sucht nach Eintrag zu der übergebeben ID
             var findID = tasksArray.find(function (object) {
-                return object.id == req.body.id;;
+                return object.id == req.body.id;
             });
             console.log('TASK POST Eintrag zur ID gefunden');
+            
             if (findID !== null) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
                 tasksArray[tasksArray.indexOf(findID)] = request;
