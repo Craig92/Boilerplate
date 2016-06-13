@@ -208,10 +208,10 @@ app.post('/api/Tasks', (req, res) => {
 
             if (findID !== null) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                findID.id = req.body.id;
-                findID.type = req.body.type;
-                findID.data.input = req.body.data.input;
-                findID.data.output = req.body.data.output;
+                findID.body.id = req.body.id;
+                findID.body.type = req.body.type;
+                findID.body.data.input = req.body.data.input;
+                findID.body.data.output = req.body.data.output;
                 console.log('POST TASK ID wurde modifiziert');
 
             } else {
