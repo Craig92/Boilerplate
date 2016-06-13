@@ -195,13 +195,13 @@ app.post('/api/Tasks', (req, res) => {
 
         if (findType !== null) {
 
-            console.log('TASK Type ist gültig');
+            console.log('TASK POST Type ist gültig');
 
             //Prüft, ob eine ID übergeben wurde und weist eine zu, falls keine übergeben wurde
             if (req.body.id === undefined) {
 
                 var id = searchFreePositionTask();
-
+                console.log('TASK POST Freie Stelle gefunden');
             }
 
             //Sucht nach Eintrag zu der übergebeben ID
@@ -212,7 +212,7 @@ app.post('/api/Tasks', (req, res) => {
             if (findID !== null) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
                 tasksArray[tasksArray.indexOf(findID)] = request;
-                console.log('ID  wurde modifiziert');
+                console.log('TASK POST ID wurde modifiziert');
                 counter++;
             } else {
 
@@ -220,13 +220,13 @@ app.post('/api/Tasks', (req, res) => {
                 if (findID >= tasksArray.length) {
                     req.body.id = counter;
                     tasksArray.push(req.body);
-                    console.log('TASK POST ID wurde erstellt');
+                    console.log('TASK POST ID wurde am Ende erstellt');
                     counter++;
 
                     //Fügt den neuen Task an der nächsten freien Stelle ein
                 } else {
                     tasksArray.push(req.body);
-                    console.log('TASK POST ID wurde erstellt');
+                    console.log('TASK POST ID wurde dazwischen erstellt');
                     counter++;
                 }
             }
