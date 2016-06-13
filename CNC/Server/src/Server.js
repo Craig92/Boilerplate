@@ -73,7 +73,7 @@ var searchFreePositionTask = function () {
 
         //Wenn nicht gleich ist wird die Position als ID übergeben.
         if (isSame === false) {
-            return freePosition = i;
+            return freePosition == i;
         }
     }
     return freePosition = counter;
