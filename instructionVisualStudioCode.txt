@@ -2,7 +2,6 @@ TODO
 - POST Methoden testen und fixen (Mithilfe des Advanced Rest Client Application https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo/reviews?hl=en-US&utm_source=ARC )
 - kommentieren des Programmcodes
 - unnötiger Code entfernen
-- NICE TO HAVE: Redundanz durch einzelne Methoden lösen (TokenPrüfung, Write und Read)
 - NICE TO HAVE: CSS Trasitions aus Meilenstein 2 einbauen 
 - NICE TO HAVE: DELETE Funktion integrieren für Tasks
 
