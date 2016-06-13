@@ -66,7 +66,7 @@ var searchFreePositionTask = function () {
     var isSame;
 
     //Geht über das Task Array und prüft ob die ID an der Stelle mit der Stellenpostion übereinstimmt
-    for (var i = 0; i != tasksArray.length; i++) {
+    for (var i = 0; i !== tasksArray.length; i++) {
         isSame = tasksArray.find(function (object) {
             return object.id == i;
         });
