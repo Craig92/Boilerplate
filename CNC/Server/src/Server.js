@@ -212,7 +212,7 @@ app.post('/api/Tasks', (req, res) => {
 
             if (findID !== null) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                tasksArray[tasksArray.indexOf(findID)] = req.body;
+                tasksArray[tasksArray.indexOf(findID)] = req;
                 console.log('TASK POST ID wurde modifiziert');
                 counter++;
             } else {
@@ -220,13 +220,13 @@ app.post('/api/Tasks', (req, res) => {
                 //Fügt den neuen Task am Ende ein
                 if (findID >= tasksArray.length) {
                     req.body.id = counter;
-                    tasksArray.push(req.body);
+                    tasksArray.push(req);
                     console.log('TASK POST ID wurde am Ende erstellt');
                     counter++;
 
                     //Fügt den neuen Task an der nächsten freien Stelle ein
                 } else {
-                    tasksArray.push(req.body);
+                    tasksArray.push(req);
                     console.log('TASK POST ID wurde dazwischen erstellt');
                     counter++;
                 }
@@ -235,7 +235,7 @@ app.post('/api/Tasks', (req, res) => {
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
-                console.log('Tasks Einträge wurden modifiziert');
+                console.log('TASK Einträge wurden modifiziert');
             });
             res.send(JSON.stringify({ message: 'OK' }));
         } else {
