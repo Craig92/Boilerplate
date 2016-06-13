@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 //Startet den Server auf Port 1337 und schreibt die beiden Textdateien in die entsprechenden Arrays
 app.listen(1337, () => {
-    console.log("SERVER gestartet...");
+    console.log("SERVER gestartet");
 
     fs.readFile('./ServerStatus.txt', (error, data) => {
         if (error) throw error
@@ -52,15 +52,15 @@ fs.readFile('./ServerTasks.txt', 'utf8', (error, data) => {
 //Prüft, ob der übergebene Token gültig ist
 var isTeamToken = function (token) {
     if (teamToken === token) {
-        console.log('Token akzeptiert');
+        console.log('TOKEN akzeptiert');
         return true;
     } else {
-        console.log('Token angelehnt');
+        console.log('TOKEN angelehnt');
         return false;
     }
 };
 
-//Sucht die nächste Freie Stelle im Task Array
+//Sucht die nächste freie Stelle im Task Array
 var searchFreePositionTask = function () {
     var freePosition;
     var isSame;
@@ -78,8 +78,6 @@ var searchFreePositionTask = function () {
     }
     return freePosition = counter;
 };
-
-
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
@@ -197,7 +195,7 @@ app.post('/api/Tasks', (req, res) => {
 
         if (findType !== null) {
 
-            console.log('TASK Type gültig');
+            console.log('TASK Type ist gültig');
 
             //Prüft, ob eine ID übergeben wurde und weist eine zu, falls keine übergeben wurde
             if (req.body.id === undefined) {
@@ -219,16 +217,16 @@ app.post('/api/Tasks', (req, res) => {
             } else {
 
                 //Fügt den neuen Task am Ende ein
-                if (findID == tasksArray.length) {
+                if (findID >= tasksArray.length) {
                     req.body.id = counter;
                     tasksArray.push(req.body);
-                    console.log('TASK POST ID ' + findID + ' wurde erstellt');
+                    console.log('TASK POST ID wurde erstellt');
                     counter++;
 
                     //Fügt den neuen Task an der nächsten freien Stelle ein
                 } else {
                     tasksArray.push(req.body);
-                    console.log('TASK POST ID ' + findID + ' wurde erstellt');
+                    console.log('TASK POST ID wurde erstellt');
                     counter++;
                 }
             }
