@@ -64,41 +64,18 @@ var isTeamToken = function (token) {
     }
 };
 
-//Sucht die nächste freie Stelle im Task Array
-var searchFreePositionTask = function () {
-    var freePosition;
-    var isSame;
-
-    //Geht über das Task Array und prüft ob die ID an der Stelle mit der Stellenpostion übereinstimmt
-    for (var i = 0; i != tasksArray.length; i++) {
-        isSame = tasksArray.find(function (object) {
-            return object.id == i;
-        });
-
-        //Wenn nicht gleich ist wird die Position als ID übergeben.
-        if (isSame === false) {
-            return freePosition = i;
+var searchFreePositionTask = function (req) {
+    if (req.params.id < 1) {
+        return 0;
+    } else {
+        for (var i = 0; i < tasksArray.length; i++) {
+            if (tasksArray[i] == req.params.id) {
+                return tasksArray[i];
+            }
         }
     }
-    return freePosition = counter;
+    return 0;
 };
-
-var freeElement = function (req, ziel){
-	var idAlsNummer = req.params.id
-	if(idAlsNummer < 1){
-		return 0;
-	}else{
-		for(var i = 0; i < ziel.length; i++){
-			if(ziel[i] == idAlsNummer){
-				return ziel[i];
-			}
-		}
-	}
-	return 0;
-}
-
-
-
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
@@ -202,7 +179,7 @@ app.get('/api/Tasks/:id', (req, res) => {
 
 //Tasks POST REQUEST Modifiziert Eintrag in Tasks Datenbank, fall erlaubt.
 app.post('/api/Tasks', (req, res) => {
-    
+
     var token = req.get('Token');
 
     if (isTeamToken(token)) {
@@ -216,8 +193,8 @@ app.post('/api/Tasks', (req, res) => {
 
             console.log('TASK Type ist gültig');
 
-            if(freeElement(req, tasksArray) != 0){
-                tasksArray.forEach((object) =>{
+            if (searchFreePositionTask(req) != 0) {
+                tasksArray.forEach((object) => {
                     if (object.id == req.body.id) {
                         object.type = req.body.type;
                         object.data.input = req.body.data.input;
@@ -227,7 +204,7 @@ app.post('/api/Tasks', (req, res) => {
                 });
             } else {
                 //Fügt den neuen Eintrag ein
-                var temp = tasksArray.length+1;
+                var temp = tasksArray.length + 1;
                 tasksArray.push(
                     {
                         id: temp,
@@ -240,50 +217,10 @@ app.post('/api/Tasks', (req, res) => {
                 );
                 console.log('POST TASK ID wurde erstellt');
             }
-
-/*      
-            //Prüft, ob eine ID übergeben wurde und weist eine zu, falls keine übergeben wurde
-            if (req.body.id === undefined) {
-
-                req.body.id = searchFreePositionTask();
-            }
-
-            //Sucht nach Eintrag zu der übergebeben ID
-            var findID = tasksArray.find(function (object) {
-                return object.id == req.body.id;
-            });
-
-            if (findID !== null) {
-                //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-
-                tasksArray.forEach((object) => {
-                    if (object.id == req.body.id) {
-                        object.type = req.body.type;
-                        object.data.input = req.body.data.input;
-                        object.data.output = '';
-                        console.log('POST TASK ID wurde modifiziert');
-                    }
-                });
-            } else {
-
-                //Fügt den neuen Eintrag ein
-                tasksArray.push(
-                    {
-                        id: req.body.id,
-                        type: req.body.type,
-                        data: {
-                            input: req.body.data.input,
-                            output: req.body.data.output,
-                        }
-                    }
-                );
-                console.log('POST TASK ID wurde erstellt');
-            }
-            */
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
-                console.log('Tasks Einträge wurden modifiziert');
+                console.log('TASKS ARRAY wurden modifiziert');
             });
             res.send(JSON.stringify({ message: 'OK' }));
 
@@ -316,7 +253,7 @@ app.delete('/api/Tasks/:id', (req, res) => {
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
-                console.log('TASKS Einträge wurden modifiziert');
+                console.log('TASKS ARRAY wurden modifiziert');
 
                 res.send(JSON.stringify({ message: 'OK' }));
             });
