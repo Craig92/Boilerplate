@@ -208,12 +208,15 @@ app.post('/api/Tasks', (req, res) => {
 
             if (findID !== null) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                //findID.id = req.body.id;
-                findID.type = req.body.type;
-                findID.data.input = req.body.data.input;
-                findID.data.output = req.body.data.output;
-                console.log('POST TASK ID wurde modifiziert');
 
+                tasksArray.forEach((object) => {
+                    if (object.id == req.body.id) {
+                        object.type = req.body.type;
+                        object.data.input = req.body.data.input;
+                        object.data.output = req.body.data.output;
+                        console.log('POST TASK ID wurde modifiziert');
+                    }
+                });
             } else {
 
                 //Fügt den neuen Eintrag ein
@@ -227,15 +230,15 @@ app.post('/api/Tasks', (req, res) => {
                         }
                     }
                 );
-                 console.log('POST TASK ID wurde erstellt');
+                console.log('POST TASK ID wurde erstellt');
             }
-                //Schreibt die Änderungen in die Datei
-                fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
-                    if (error) throw error;
-                    console.log('Tasks Einträge wurden modifiziert');
-                });
-                res.send(JSON.stringify({ message: 'OK' }));
-            
+            //Schreibt die Änderungen in die Datei
+            fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
+                if (error) throw error;
+                console.log('Tasks Einträge wurden modifiziert');
+            });
+            res.send(JSON.stringify({ message: 'OK' }));
+
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
