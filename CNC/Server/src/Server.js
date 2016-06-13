@@ -66,7 +66,7 @@ var isTeamToken = function (token) {
 
 var searchFreePositionTask = function (req) {
 
-    for (var i = 0; i < tasksArray.length; i++) {
+    for (var i = 1; i < tasksArray.length; i++) {
         if (tasksArray[i] == parseInt(req.params.id)) {
             return tasksArray[i];
         }
@@ -202,7 +202,7 @@ app.post('/api/Tasks', (req, res) => {
                 });
             } else {
                 //Fügt den neuen Eintrag ein
-                var temp = tasksArray.length + 1;
+                var temp = tasksArray.length + 2;
                 tasksArray.push(
                     {
                         id: temp,
