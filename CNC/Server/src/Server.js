@@ -197,81 +197,28 @@ app.post('/api/Tasks', (req, res) => {
 
             console.log('TASK POST Type ist gültig');
 
-            //Prüft, ob eine ID übergeben wurde und weist eine zu, falls keine übergeben wurde
-            if (req.body.id === null) {
+            //Prüft, ob eine ID übergeben wurde.
+            if (req.body.id !== undefined) {
 
-                req.body.id = searchFreePositionTask();
-                console.log('TASK POST freie Stelle gefunden');
-            }
+                //Trägt an der Position der ID die geänderten Werte ein
+                tasksArray[tasksArray.indexOf(req.body.id)] = req.body;          
+                console.log('TASK POST ID wirde modifiziert');
 
-
-            //Sucht nach Eintrag zu der übergebeben ID
-            var findID = tasksArray.find(function (object) {
-                return object.id == req.body.id;;
-            });
-
-            if (findID !== null) {
-                //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                tasksArray[tasksArray.indexOf(findID)] = request;
-                console.log('ID  wurde modifiziert');
-
-            //Fügt Task am Ende des Arrays ein, wenn ID größer ist als Länge des Arrays
-            if (req.body.id >= tasksArray.length) {
-                req.body.id = counter;
-                tasksArray.push(req.body);
-
-                counter++;
-                console.log('TASK POST ID wurde am Ende eingefügt')
             } else {
-
-
-                //Fügt den neuen Task am Ende ein
-                if (findID >= tasksArray.length) {
-                    req.body.id = counter;
+                req.body.id = searchFreePositionTask();
+                console.log('TASK POST freie Stelle gefunden'); 
+            
+                //Trägt den neuen Eintrag am Ende ein
+                if (req.body.id > counter){
                     tasksArray.push(req.body);
-                    console.log('TASK POST ID wurde erstellt');
-                    counter++;
+                    console.log('TASK POST ID wurde ans Ende eingefügt');
 
-                    //Fügt den neuen Task an der nächsten freien Stelle ein
+                //Trägt den neuen Eintrag dazsichen ein
                 } else {
-                    tasksArray.push(req.body);
-                    console.log('TASK POST ID wurde erstellt');
-                    counter++;
+                    tasksArray[tasksArray.indexOf(req.body.id)] = req.body;  
+                    console.log('TASK POST ID wurde dazwischen eingefügt');
                 }
-
-                tasksArray[tasksArray.indexOf(req.body.id)] = req.body;
-                console.log('TASK POST ID wurde an der entsprechenden Stelle eingefügt')
-
             }
-            /*
-                        //Sucht nach Eintrag zu der übergebeben ID
-                        var findID = tasksArray.find(function (object) {
-                            return object.id === req.body.id;
-                        });
-                        console.log('TASK POST Eintrag zur ID gefunden');
-            
-                        if (findID !== null) {
-                            //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                            tasksArray[tasksArray.indexOf(findID)] = req;
-                            console.log('TASK POST ID wurde modifiziert');
-                            counter++;
-                        } else {
-            
-                            //Fügt den neuen Task am Ende ein
-                            if (findID >= tasksArray.length) {
-                                req.body.id = counter;
-                                tasksArray.push(req);
-                                console.log('TASK POST ID wurde am Ende erstellt');
-                                counter++;
-            
-                                //Fügt den neuen Task an der nächsten freien Stelle ein
-                            } else {
-                                tasksArray.push(req);
-                                console.log('TASK POST ID wurde dazwischen erstellt');
-                                counter++;
-                            }
-                        }
-            */
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
