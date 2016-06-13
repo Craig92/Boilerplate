@@ -206,7 +206,7 @@ app.post('/api/Tasks', (req, res) => {
             if (findID !== undefined) {
 
                 //Trägt an der Position der ID die geänderten Werte ein
-                tasksArray[tasksArray.indexOf(req.body.id)] = req.body;
+                tasksArray[tasksArray.indexOf(parseInt(req.body.id))] = req.body;
                 console.log('TASK POST ID wirde modifiziert');
 
             } else {
@@ -219,7 +219,7 @@ app.post('/api/Tasks', (req, res) => {
 
                             //Sucht ID im Array
             var findID = tasksArray.find(function (object) {
-                return object.id == req.body.id;
+                return object.id == parseInt(req.body.id);
             });
 
                 //Trägt den neuen Eintrag am Ende ein
@@ -229,7 +229,7 @@ app.post('/api/Tasks', (req, res) => {
 
                     //Trägt den neuen Eintrag dazsichen ein
                 } else {
-                    tasksArray[tasksArray.indexOf(req.body.id)] = req.body;
+                    tasksArray[tasksArray.indexOf(parseInt(req.body.id))] = req.body;
                     console.log('TASK POST ID wurde dazwischen eingefügt');
                 }
             }
