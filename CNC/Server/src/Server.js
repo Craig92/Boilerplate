@@ -65,16 +65,14 @@ var isTeamToken = function (token) {
 };
 
 var searchFreePositionTask = function (req) {
-    if (req.params.id > 1) {
-        return 1;
-    } else {
-        for (var i = 0; i < tasksArray.length; i++) {
-            if (tasksArray[i] == req.params.id) {
-                return tasksArray[i];
-            }
+
+    for (var i = 0; i < tasksArray.length; i++) {
+        if (tasksArray[i] == req.params.id) {
+            return tasksArray[i];
         }
     }
-    return 1;
+
+    return 0;
 };
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
