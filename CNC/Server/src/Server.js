@@ -35,19 +35,23 @@ app.listen(1337, () => {
 });
 
 //Liest die ServerStatus.txt und schreibt Sie ins Status Array
-fs.readFile('./ServerStatus.txt', 'utf8', (error, data) => {
-    if (error) throw error;
-    statusArray = JSON.parse(data.toString('utf8'));
-    console.log('STATUS Einträge geladen');
-});
+var readStatus = function () {
+    s.readFile('./ServerStatus.txt', 'utf8', (error, data) => {
+        if (error) throw error;
+        statusArray = JSON.parse(data.toString('utf8'));
+        console.log('STATUS Einträge geladen');
+    });
+};
 
 
 //Liest die ServerTasks.txt und schreibt Sie ins Tasks Array
-fs.readFile('./ServerTasks.txt', 'utf8', (error, data) => {
-    if (error) throw error;
-    tasksArray = JSON.parse(data.toString('utf8'));
-    console.log('TASKS Einträge geladen');
-});
+var readTasks = function () {
+    fs.readFile('./ServerTasks.txt', 'utf8', (error, data) => {
+        if (error) throw error;
+        tasksArray = JSON.parse(data.toString('utf8'));
+        console.log('TASKS Einträge geladen');
+    });
+};
 
 //Prüft, ob der übergebene Token gültig ist
 var isTeamToken = function (token) {
@@ -82,6 +86,8 @@ var searchFreePositionTask = function () {
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
 app.get('/api/Status', (req, res) => {
 
+    readStatus();
+
     if (statusArray instanceof Array) {
         res.send(JSON.stringify(statusArray));
         console.log('GET STATUS Object wurde aufgerufen');
@@ -90,6 +96,8 @@ app.get('/api/Status', (req, res) => {
 
 //STATUS GET REQUEST Liefert ein Array des Eintrags aus der Datenbank, wenn ID vorhanden ist.
 app.get('/api/Status/:id', (req, res) => {
+
+    readStatus();
 
     if (statusArray instanceof Array) {
         var id = statusArray.find(function (object) {
@@ -108,6 +116,8 @@ app.get('/api/Status/:id', (req, res) => {
 
 //Status POST REQUEST Modifiziert Eintrag in Status Datenbank, falls der Zugriff erlaubt ist.
 app.post('/api/Status', (req, res) => {
+
+    readStatus();
 
     var token = req.get('Token');
 
@@ -153,6 +163,8 @@ app.post('/api/Status', (req, res) => {
 //Tasks GET REQUEST Liefert ein Object mit allen Einträgen der Tasks Datenbank
 app.get('/api/Tasks', (req, res) => {
 
+    readTasks();
+
     if (tasksArray instanceof Array) {
         res.send(JSON.stringify(tasksArray));
         console.log('GET TASKS Object wurde aufgerufen');
@@ -162,6 +174,8 @@ app.get('/api/Tasks', (req, res) => {
 
 //Tasks GET REQUEST Liefert Array des Eintrags aus der Datenbak, wenn ID vorhanden ist.
 app.get('/api/Tasks/:id', (req, res) => {
+
+    readTasks();
 
     if (tasksArray instanceof Array) {
         var id = tasksArray.find(function (object) {
@@ -182,6 +196,8 @@ app.get('/api/Tasks/:id', (req, res) => {
 //Tasks POST REQUEST Modifiziert Eintrag in Tasks Datenbank, fall erlaubt.
 app.post('/api/Tasks', (req, res) => {
 
+    readTasks();
+    
     var token = req.get('Token');
 
     if (isTeamToken(token)) {
