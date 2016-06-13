@@ -123,7 +123,7 @@ app.post('/api/Status', (req, res) => {
             if (req.body.status !== null) {
 
                 if (req.body.status === true) {
-                    findID.workload = 0.5;
+                    findID.workload = 1.0;
                     findID.task = 0;
                     console.log('STATUS POST ID wurde gestartet');
                 } else {
@@ -136,17 +136,15 @@ app.post('/api/Status', (req, res) => {
                 fs.writeFile('./ServerStatus.txt', JSON.stringify(statusArray), function (error) {
                     if (error) throw error;
                     console.log('STATUS ARRAY wurden modifiziert');
-
-                    res.send(JSON.stringify({ message: 'OK' }));
                 });
+
+                res.send(JSON.stringify({ message: 'OK' }));
             } else {
                 res.send(JSON.stringify({ message: 'NOT OK' }));
             }
-
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
-
     } else {
         res.send(JSON.stringify({ message: 'NOT OK' }));
     }
@@ -200,85 +198,47 @@ app.post('/api/Tasks', (req, res) => {
             //Prüft, ob eine ID übergeben wurde und weist eine zu, falls keine übergeben wurde
             if (req.body.id === undefined) {
 
-                var id = searchFreePositionTask();
-
+                req.body.id = searchFreePositionTask();
             }
 
             //Sucht nach Eintrag zu der übergebeben ID
             var findID = tasksArray.find(function (object) {
-                return object.id == req.body.id;;
+                return object.id == req.body.id;
             });
 
             if (findID !== null) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
-                tasksArray[tasksArray.indexOf(findID)] = request;
-                console.log('ID  wurde modifiziert');
-                counter++;
-            } else {
-
-                //Fügt den neuen Task am Ende ein
-                if (findID >= tasksArray.length) {
-                    req.body.id = counter;
-                    tasksArray.push(req.body);
-                    console.log('TASK POST ID wurde erstellt');
-                    counter++;
-
-                    //Fügt den neuen Task an der nächsten freien Stelle ein
-                } else {
-                    tasksArray.push(req.body);
-                    console.log('TASK POST ID wurde erstellt');
-                    counter++;
-                }
-            }
-
-            //Sucht ID im Array
-            var findID = tasksArray.find(function (object) {
-                return object.id == parseInt(req.body.id);
-            });
-
-            //Prüft, ob eine ID übergeben wurde.
-            if (findID !== undefined) {
-
-                //Trägt an der Position der ID die geänderten Werte ein
-                tasksArray[tasksArray.indexOf(parseInt(req.body.id))] = req.body;
-                console.log('TASK POST ID wirde modifiziert');
+                findID.id = req.body.id;
+                findID.type = req.body.type;
+                findID.data.input = req.body.data.input;
+                findID.data.output = req.body.data.output;
+                console.log('POST TASK ID wurde modifiziert');
 
             } else {
 
-                //Weist eine ID zu, wenn keine ID vorhanden
-                if (req.body.id === undefined) {
-                    req.body.id = searchFreePositionTask();
-                    console.log('TASK POST freie Stelle gefunden');
-                }
-
-                            //Sucht ID im Array
-            var findID = tasksArray.find(function (object) {
-                return object.id == parseInt(req.body.id);
-            });
-
-                //Trägt den neuen Eintrag am Ende ein
-                if (findID === undefined) {
-                    tasksArray.push(req.body);
-                    console.log('TASK POST ID wurde ans Ende eingefügt');
-
-                    //Trägt den neuen Eintrag dazsichen ein
-                } else {
-                    tasksArray[tasksArray.indexOf(parseInt(req.body.id))] = req.body;
-                    console.log('TASK POST ID wurde dazwischen eingefügt');
-                }
+                //Fügt den neuen Eintrag ein
+                tasksArray.push(
+                    {
+                        id: req.body.id,
+                        type: req.body.type,
+                        data: {
+                            input: req.body.data.input,
+                            output: req.body.data.output,
+                        }
+                    }
+                );
+                 console.log('POST TASK ID wurde erstellt');
             }
-
-            //Schreibt die Änderungen in die Datei
-            fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
-                if (error) throw error;
-                console.log('Tasks Einträge wurden modifiziert');
-            });
-            res.send(JSON.stringify({ message: 'OK' }));
+                //Schreibt die Änderungen in die Datei
+                fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
+                    if (error) throw error;
+                    console.log('Tasks Einträge wurden modifiziert');
+                });
+                res.send(JSON.stringify({ message: 'OK' }));
+            
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
-
-
     } else {
         res.send(JSON.stringify({ message: 'NOT OK' }));
     }
@@ -296,15 +256,11 @@ app.delete('/api/Tasks/:id', (req, res) => {
         var findID = tasksArray.find(function (object) {
             return object.id == req.body.id;
         });
-        var id = tasksArray.find(function (object) {
-            return object.id == req.params.id;
-
-        });
 
         if (findID !== null) {
 
             console.log('DELETE Gültige ID übergeben');
-            tasksArray.slice(findID, 1);
+            tasksArray.slice(findID - 1, 1);
 
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
