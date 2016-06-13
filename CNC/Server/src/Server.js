@@ -48,7 +48,7 @@ var readStatus = function () {
 var readTasks = function () {
     fs.readFile('./ServerTasks.txt', 'utf8', (error, data) => {
         if (error) throw error;
-        tasksArray = JSON.parse(data.toString('utf8'));
+        tasksArray = JSON.parse(data);
         console.log('TASKS Einträge geladen');
     });
 };
@@ -229,7 +229,7 @@ app.post('/api/Tasks', (req, res) => {
                     if (object.id == req.body.id) {
                         object.type = req.body.type;
                         object.data.input = req.body.data.input;
-                        object.data.output = req.body.data.output;
+                        object.data.output = '';
                         console.log('POST TASK ID wurde modifiziert');
                     }
                 });
