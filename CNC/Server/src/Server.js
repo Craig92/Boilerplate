@@ -231,6 +231,43 @@ app.post('/api/Tasks', (req, res) => {
                 }
             }
 
+            //Sucht ID im Array
+            var findID = tasksArray.find(function (object) {
+                return object.id == parseInt(req.body.id);
+            });
+
+            //Prüft, ob eine ID übergeben wurde.
+            if (findID !== undefined) {
+
+                //Trägt an der Position der ID die geänderten Werte ein
+                tasksArray[tasksArray.indexOf(parseInt(req.body.id))] = req.body;
+                console.log('TASK POST ID wirde modifiziert');
+
+            } else {
+
+                //Weist eine ID zu, wenn keine ID vorhanden
+                if (req.body.id === undefined) {
+                    req.body.id = searchFreePositionTask();
+                    console.log('TASK POST freie Stelle gefunden');
+                }
+
+                            //Sucht ID im Array
+            var findID = tasksArray.find(function (object) {
+                return object.id == parseInt(req.body.id);
+            });
+
+                //Trägt den neuen Eintrag am Ende ein
+                if (findID === undefined) {
+                    tasksArray.push(req.body);
+                    console.log('TASK POST ID wurde ans Ende eingefügt');
+
+                    //Trägt den neuen Eintrag dazsichen ein
+                } else {
+                    tasksArray[tasksArray.indexOf(parseInt(req.body.id))] = req.body;
+                    console.log('TASK POST ID wurde dazwischen eingefügt');
+                }
+            }
+
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
@@ -258,6 +295,10 @@ app.delete('/api/Tasks/:id', (req, res) => {
         //Prüft, ob der übergebene Tasks eine gültige ID hat
         var findID = tasksArray.find(function (object) {
             return object.id == req.body.id;
+        });
+        var id = tasksArray.find(function (object) {
+            return object.id == req.params.id;
+
         });
 
         if (findID !== null) {
