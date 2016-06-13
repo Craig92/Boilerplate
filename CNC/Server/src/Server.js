@@ -208,7 +208,7 @@ app.post('/api/Tasks', (req, res) => {
             var findID = tasksArray.find(function (object) {
                 return object.id == req.body.id;;
             });
-
+            console.log('TASK POST Eintrag zur ID gefunden');
             if (findID !== null) {
                 //Modifiziert den vorhandenen Eintrag mit den neuen Parametern 
                 tasksArray[tasksArray.indexOf(findID)] = request;
