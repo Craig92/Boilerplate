@@ -199,7 +199,7 @@ app.post('/api/Tasks', (req, res) => {
 
             //Sucht ID im Array
             var findID = tasksArray.find(function (object) {
-                return object.id == req.body.id;
+                return object.id == parseInt(req.body.id);
             });
 
             //Prüft, ob eine ID übergeben wurde.
