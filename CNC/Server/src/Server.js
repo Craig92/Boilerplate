@@ -201,9 +201,20 @@ app.post('/api/Tasks', (req, res) => {
             if (req.body.id === null) {
 
                 req.body.id = searchFreePositionTask();
-                console.log('TASK POST Freie Stelle gefunden');
+                console.log('TASK POST freie Stelle gefunden');
             }
-            //TODO
+
+            //Fügt Task am Ende des Arrays ein, wenn ID größer ist als Länge des Arrays
+            if (req.body.id >= tasksArray.length){
+                    req.body.id = counter;
+                    tasksArray.push(req.body);
+                    counter++;
+                    console.log('TASK POST ID wurde am Ende eingefügt')
+            } else {
+                tasksArray[tasksArray.indexOf(req.body.id)] = req.body;
+                console.log('TASK POST ID wurde an der entsprechenden Stelle eingefügt')
+            }
+/*
             //Sucht nach Eintrag zu der übergebeben ID
             var findID = tasksArray.find(function (object) {
                 return object.id === req.body.id;
@@ -231,7 +242,7 @@ app.post('/api/Tasks', (req, res) => {
                     counter++;
                 }
             }
-
+*/
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
