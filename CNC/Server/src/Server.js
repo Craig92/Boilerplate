@@ -67,7 +67,7 @@ var isTeamToken = function (token) {
 var searchFreePositionTask = function (req) {
 
     for (var i = 0; i < tasksArray.length; i++) {
-        if (tasksArray[i] == req.params.id) {
+        if (tasksArray[i] == parseInt(req.params.id)) {
             return tasksArray[i];
         }
     }
