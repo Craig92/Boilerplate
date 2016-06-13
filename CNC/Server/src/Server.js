@@ -197,25 +197,39 @@ app.post('/api/Tasks', (req, res) => {
 
             console.log('TASK POST Type ist gültig');
 
+            //Sucht ID im Array
+            var findID = tasksArray.find(function (object) {
+                return object.id == req.body.id;
+            });
+
             //Prüft, ob eine ID übergeben wurde.
-            if (req.body.id !== undefined) {
+            if (findID !== undefined) {
 
                 //Trägt an der Position der ID die geänderten Werte ein
-                tasksArray[tasksArray.indexOf(req.body.id)] = req.body;          
+                tasksArray[tasksArray.indexOf(req.body.id)] = req.body;
                 console.log('TASK POST ID wirde modifiziert');
 
             } else {
-                req.body.id = searchFreePositionTask();
-                console.log('TASK POST freie Stelle gefunden'); 
-            
+
+                //Weist eine ID zu, wenn keine ID vorhanden
+                if (req.body.id === undefined) {
+                    req.body.id = searchFreePositionTask();
+                    console.log('TASK POST freie Stelle gefunden');
+                }
+
+                            //Sucht ID im Array
+            var findID = tasksArray.find(function (object) {
+                return object.id == req.body.id;
+            });
+
                 //Trägt den neuen Eintrag am Ende ein
-                if (req.body.id > counter){
+                if (findID === undefined) {
                     tasksArray.push(req.body);
                     console.log('TASK POST ID wurde ans Ende eingefügt');
 
-                //Trägt den neuen Eintrag dazsichen ein
+                    //Trägt den neuen Eintrag dazsichen ein
                 } else {
-                    tasksArray[tasksArray.indexOf(req.body.id)] = req.body;  
+                    tasksArray[tasksArray.indexOf(req.body.id)] = req.body;
                     console.log('TASK POST ID wurde dazwischen eingefügt');
                 }
             }
@@ -244,7 +258,7 @@ app.delete('/api/Tasks/:id', (req, res) => {
 
     if (isTeamToken(token)) {
 
-         var id = tasksArray.find(function (object) {
+        var id = tasksArray.find(function (object) {
             return object.id == req.params.id;
         });
 
