@@ -67,6 +67,7 @@ var isTeamToken = function (token) {
 var searchFreePositionTask = function (req) {
 
     for (var i = 1; i < tasksArray.length; i++) {
+        console.log('Array ' + tasksArray[i] +' ID '+ parseInt(req.params.id));
         if (tasksArray[i] == parseInt(req.params.id)) {
             return tasksArray[i];
         }
@@ -190,38 +191,42 @@ app.post('/api/Tasks', (req, res) => {
         if (findType !== null) {
 
             console.log('TASK Type ist gültig');
-            console.log('p = ' + searchFreePositionTask(req));
-            if (searchFreePositionTask(req) != 0) {
-                tasksArray.forEach((object) => {
-                    if (object.id == req.body.id) {
-                        object.type = req.body.type;
-                        object.data.input = req.body.data.input;
-                        object.data.output = '';
-                        console.log('POST TASK ID wurde modifiziert');
-                    }
-                });
-            } else {
-                //Fügt den neuen Eintrag ein
-                var temp = tasksArray.length + 2;
-                tasksArray.push(
-                    {
-                        id: temp,
-                        type: req.body.type,
-                        data: {
-                            input: req.body.data.input,
-                            output: req.body.data.output,
-                        }
-                    }
-                );
-                console.log('POST TASK ID wurde erstellt');
-            }
-            //Schreibt die Änderungen in die Datei
-            fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
-                if (error) throw error;
-                console.log('TASKS ARRAY wurden modifiziert');
-            });
-            res.send(JSON.stringify({ message: 'OK' }));
 
+            if (req.body.input != '') {
+                console.log('p = ' + searchFreePositionTask(req));
+                if (searchFreePositionTask(req) != 0) {
+                    tasksArray.forEach((object) => {
+                        if (object.id == req.body.id) {
+                            object.type = req.body.type;
+                            object.data.input = req.body.data.input;
+                            object.data.output = '';
+                            console.log('POST TASK ID wurde modifiziert');
+                        }
+                    });
+                } else {
+                    //Fügt den neuen Eintrag ein
+                    var temp = tasksArray.length + 2;
+                    tasksArray.push(
+                        {
+                            id: temp,
+                            type: req.body.type,
+                            data: {
+                                input: req.body.data.input,
+                                output: req.body.data.output,
+                            }
+                        }
+                    );
+                    console.log('POST TASK ID wurde erstellt');
+                }
+                //Schreibt die Änderungen in die Datei
+                fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
+                    if (error) throw error;
+                    console.log('TASKS ARRAY wurden modifiziert');
+                });
+                res.send(JSON.stringify({ message: 'OK' }));
+            } else {
+                res.send(JSON.stringify({ message: 'NOT OK' }));
+            }
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
