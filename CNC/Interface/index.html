@@ -14,13 +14,13 @@
     <script src="./script/taskTableFunctionallity.js"></script>
     <script src="./script/generalFunctionallity.js"></script>
     <title> CNC Interface JADT-Team </title>
-    
+
     <script type="text/javascript" " language=javaScript">
         <!--
         autoRefresh();
         //-->
     </script>
-    
+
 </head>
 
 <body>
@@ -41,33 +41,34 @@
                 <p>Wählen sie einen der Menüpunkte um mit dem CNC Server zu interagieren.</p>
                 <section id="status" class="focus">
                     <h2>Status</h1>
-						<button onclick="refreshPage()"> <img src ="./icons/refresh.png" height="16" alt="">Aktualisieren</button>
-						<h2>Statustabelle</h2>
-                    <p>Hier ist die Statustabelle mit den aktuellen Aufträgen, die mithilfe der Buttons aktiviert bzw. deaktiviert werden können.</p>
-                    <table id="status-table" class="sortable">
-                        <colgroup>
-                            <col width="10%">
-                            <col width="60%">
-                            <col width="10%">
-                            <col width="10%">
-                            <col width="10%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>IP</th>
-                                <th>Task</th>
-                                <th>Workload</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td colspan="5">Kein Inhalt vorhanden. Drücken Sie bitte auf den "Daten laden"-Button.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button id="status-load-button" onclick="initializeStatus()"> <img src ="./icons/download.png" height="16" alt="">Daten von Server laden</button>
+                        <button onclick="refreshPage()"> <img src ="./icons/refresh.png" height="16" alt="">Aktualisieren</button>
+                        <h2>Statustabelle</h2>
+                        <p>Hier ist die Statustabelle mit den aktuellen Aufträgen, die mithilfe der Buttons aktiviert bzw. deaktiviert
+                            werden können.</p>
+                        <table id="status-table" class="sortable">
+                            <colgroup>
+                                <col width="10%">
+                                <col width="60%">
+                                <col width="10%">
+                                <col width="10%">
+                                <col width="10%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>IP</th>
+                                    <th>Task</th>
+                                    <th>Workload</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="5">Kein Inhalt vorhanden. Drücken Sie bitte auf den "Daten laden"-Button.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button id="status-load-button" onclick="initializeStatus()"> <img src ="./icons/download.png" height="16" alt="">Daten von Server laden</button>
                 </section>
                 <section id="tasks" class="focus">
                     <h2>Auftrag</h2>
@@ -86,7 +87,8 @@
 								<option>crack-md5</option>
 							</select><br>
                         <button id="reset-formular-button" type="reset"> <img src ="./icons/refresh.png" height="16" alt="">Eingaben zurücksetzen</button><br>
-                        <button id="send-formular-button" onclick="sendTask(document.getElementById('id').value, document.getElementById('type').value,document.getElementById('dataInput').value)" type="button"> <img src ="./icons/upload.png" height="16" alt="">Eingaben absenden</button>
+                        <button id="send-formular-button" onclick="sendTask(document.getElementById('id').value, document.getElementById('type').value,document.getElementById('dataInput').value)"
+                            type="button"> <img src ="./icons/upload.png" height="16" alt="">Eingaben absenden</button>
                     </form><br>
                     <h2>Auftragstabelle</h2>
                     <p>Hier ist die Auftragstabelle mit den aktuellen Aufträgen.</p>
@@ -119,7 +121,8 @@
         </section>
     </main>
     <footer id="group-footer">
-        <p> Gruppenname: JADT-Script <a href="https://github.com/Craig92/Boilerplate">GitHub Adresse</a> | Icons designed by <a href="http://www.flaticon.com/">Freepik</a></p>
+        <p> Gruppenname: JADT-Script <a href="https://github.com/Craig92/Boilerplate">GitHub Adresse</a> | Icons designed by
+            <a href="http://www.flaticon.com/">Freepik</a></p>
         <p> Julian Busch, Alexander Daum, Dominik Treutle, Thorsten Föhringer</p>
     </footer>
 </body>
