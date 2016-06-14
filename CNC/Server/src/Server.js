@@ -65,7 +65,7 @@ var isTeamToken = function (token) {
 
 var searchFreePositionTask = function () {
 
-    for (var i = 0; i < tasksArray.length; i++) {
+    for (var i = 1; i < tasksArray.length; i++) {
 
         var temptask = tasksArray.find(function (object) {
             return object.id == i;
