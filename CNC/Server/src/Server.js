@@ -68,7 +68,7 @@ var searchFreePositionTask = function (req) {
 
     for (var i = 1; i < tasksArray.length; i++) {
         console.log('Array ' + tasksArray[i].body.id +' ID '+ req.params.id);
-        if (tasksArray[i].body.id == req.params.id) {
+        if (tasksArray[i].id == req.body.id) {
             return tasksArray[i];
         }
     }
