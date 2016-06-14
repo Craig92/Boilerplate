@@ -214,7 +214,7 @@ app.post('/api/Tasks', (req, res) => {
                 req.body.id = ++tasksArray.length;
                 req.body.data.output = null;
                 tasksArray.push(req.body);
-                console('POST TASK Neuer Task erstellt');
+                console.log('POST TASK Neuer Task erstellt');
             }
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
