@@ -68,7 +68,7 @@ var searchFreePositionTask = function () {
     for (var i = 1; i < tasksArray.length; i++) {
 
         var temptask = tasksArray.find(function (object) {
-            return object.id == i;
+            return object.id == ++i;
         });
         if (temptask === undefined) {
             return i;
