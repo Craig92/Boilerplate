@@ -198,6 +198,7 @@ app.post('/api/Tasks', (req, res) => {
                 if (findID === undefined) {
                     console.log('POST TASK ID nicht gefunden');
                     res.send(JSON.stringify({ message: 'NOT OK' }));
+                    return;
                 } else {
                     var tempTask = {
                         id: req.body.id,
