@@ -197,6 +197,7 @@ app.post('/api/Tasks', (req, res) => {
                 //Modifiziert den Eintrag
                 tasksArray[tasksArray.indexOf(findID)] = req.body;
                 console.log('POST TASK modifiziert');
+                res.send(JSON.stringify({ message: 'OK' }));
             } else {
 
                 if (req.body.id === undefined) {
@@ -204,6 +205,7 @@ app.post('/api/Tasks', (req, res) => {
                     req.body.id = searchFreePositionTask();
                     tasksArray.push(req.body);
                     console.log('POST TASK neuer Eintrag');
+                    res.send(JSON.stringify({ message: 'OK' }));
                 } else {
                     res.send(JSON.stringify({ message: 'NOT OK' }));
                 }
@@ -214,7 +216,7 @@ app.post('/api/Tasks', (req, res) => {
                 if (error) throw error;
                 console.log('TASKS ARRAY wurden modifiziert');
             });
-            res.send(JSON.stringify({ message: 'OK' }));
+            
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
