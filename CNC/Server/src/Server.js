@@ -203,7 +203,7 @@ app.post('/api/Tasks', (req, res) => {
                     }
                 };
 
-                if (tempTask === null) {
+                if (tempTask == null) {
                     res.send(JSON.stringify({ message: 'NOT OK' }));
                 } else {
                     for (var i = 0; i < tasksArray.length; i++) {
