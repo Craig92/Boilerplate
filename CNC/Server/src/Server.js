@@ -261,10 +261,11 @@ app.post('/api/Tasks', (req, res) => {
     } else {
         res.send(JSON.stringify({ message: 'NOT OK' }));
     }
+    /*
 } else {
         res.send(JSON.stringify({ message: 'NOT OK' }));
     }
-
+*/
 });
 
 //Löscht Eintrag in der Task, falls vorhanden.
