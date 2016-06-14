@@ -216,7 +216,7 @@ app.post('/api/Tasks', (req, res) => {
 
                 }
             } else {
-                req.body.id = tasksArray.length;
+                req.body.id = tasksArray.length+1;
                 console.log('tempTask wurde eingefügt')
                 tasksArray.push(req.body);
 
