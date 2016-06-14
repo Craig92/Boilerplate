@@ -187,16 +187,9 @@ app.post('/api/Tasks', (req, res) => {
             return object.type == req.body.type;
         });
 
-        //Prüft, ob der übergebene Status eine gültige ID hat
-        var findID = tasksArray.find(function (object) {
-            return object.id == req.body.id;;
-        });
-
-        console.log(findID);
-
         if (findType !== null) {
-            console.log(req.params.id);
-            if (req.body.id > 0) {
+
+            if (req.body.id != 0) {
                 //Erstellt einen Task mit den übergebenen Wert, wenn
                 var tempTask = {
                     id: req.body.id,
