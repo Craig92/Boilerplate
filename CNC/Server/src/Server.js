@@ -10,7 +10,6 @@ var tasksArray = [];
 var teamToken = '48ce10edb6c3377e7771370a4ab3569d';
 
 var typeArray = ['hash-md5', 'hash-sha256', 'crack-md5'];
-var counter = 0;
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -217,7 +216,7 @@ app.post('/api/Tasks', (req, res) => {
 
                 }
             } else {
-                req.body.id = ++counter;
+                req.body.id = tasksArray.length;
                 console.log('tempTask wurde eingefügt')
                 tasksArray.push(req.body);
 
