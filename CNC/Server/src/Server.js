@@ -208,7 +208,8 @@ app.post('/api/Tasks', (req, res) => {
                     for (var i = 0; i < tasksArray.length; i++) {
                         //console.log('Array ' + tasksArray[i].body.id +' ID '+ req.params.id);
                         if (tasksArray[i].id == req.body.id) {
-                            return tasksArray[i] = tempTask;
+                            tasksArray[i] = tempTask;
+                            console.log('Pos gefunden');
                         }
 
                     }
