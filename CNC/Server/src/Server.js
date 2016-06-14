@@ -197,6 +197,7 @@ app.post('/api/Tasks', (req, res) => {
             //hat eine ID
             if (findID !== null) {
                 //Erstellt einen Task mit den übergebenen Wert, wenn
+
                 var tempTask = {
                     id: req.body.id,
                     type: req.body.type,
@@ -205,7 +206,7 @@ app.post('/api/Tasks', (req, res) => {
                         output: ''
                     }
                 };
-                tasksArray.push(tempTask);
+                tasksArray[req.body.id] = tempTask;
                 console.log('tempTask erstellt')
 
                 //hat keine ID
