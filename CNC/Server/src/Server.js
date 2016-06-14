@@ -180,6 +180,8 @@ app.post('/api/Tasks', (req, res) => {
 
     var token = req.get('Token');
 
+    console.log(req.get('id'));
+
     if (isTeamToken(token)) {
 
         //Prüft, ob der übergebene Tasks einen gültiger Type hat 
