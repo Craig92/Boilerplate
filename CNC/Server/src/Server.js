@@ -205,6 +205,7 @@ app.post('/api/Tasks', (req, res) => {
                         output: ''
                     }
                 };
+                tasksArray.push(tempTask);
                 console.log('tempTask erstellt')
 
                 //hat keine ID
