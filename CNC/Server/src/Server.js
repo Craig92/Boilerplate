@@ -213,19 +213,18 @@ app.post('/api/Tasks', (req, res) => {
                     res.send(JSON.stringify({ message: 'NOT OK' }));
                 }
             }
-
-            //Schreibt die Änderungen in die Datei
-            fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
-                if (error) throw error;
-                console.log('TASKS ARRAY wurden modifiziert');
-            });
-
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
     } else {
         res.send(JSON.stringify({ message: 'NOT OK' }));
     }
+
+    //Schreibt die Änderungen in die Datei
+    fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
+        if (error) throw error;
+        console.log('TASKS ARRAY wurden modifiziert');
+    });
 });
 
 //Löscht Eintrag in der Task, falls vorhanden.
