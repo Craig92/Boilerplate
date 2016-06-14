@@ -180,8 +180,6 @@ app.post('/api/Tasks', (req, res) => {
 
     var token = req.get('Token');
 
-    console.log(req.get('id'));
-
     if (isTeamToken(token)) {
 
         //Prüft, ob der übergebene Tasks einen gültiger Type hat 
@@ -189,8 +187,15 @@ app.post('/api/Tasks', (req, res) => {
             return object.type == req.body.type;
         });
 
+        //Prüft, ob der übergebene Status eine gültige ID hat
+        var findID = statusArray.find(function (object) {
+            return object.id == req.body.id;;
+        });
+
+        console.log(findID);
+
         if (findType !== null) {
-        console.log(req.params.id);
+            console.log(req.params.id);
             if (parseInt(req.body.id, 10) > 0) {
                 //Erstellt einen Task mit den übergebenen Wert, wenn
                 var tempTask = {
@@ -218,7 +223,7 @@ app.post('/api/Tasks', (req, res) => {
 
                 }
             } else {
-                req.body.id = tasksArray.length+1;
+                req.body.id = tasksArray.length + 1;
                 console.log('tempTask wurde eingefügt')
                 tasksArray.push(req.body);
 
