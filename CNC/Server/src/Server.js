@@ -63,16 +63,19 @@ var isTeamToken = function (token) {
     }
 };
 
-var searchFreePositionTask = function (req) {
+var searchFreePositionTask = function () {
 
     for (var i = 0; i < tasksArray.length; i++) {
-        //console.log('Array ' + tasksArray[i].body.id +' ID '+ req.params.id);
-        if (tasksArray[i].id == req.body.id) {
-            return tasksArray[i] = tempTask;
+
+        var temptask = tasksArray.find(function (object) {
+            return object.id == i;
+        });
+        if (temptask === undefined) {
+            return i;
         }
     }
 
-    return 0;
+    return tasksArray.length;
 };
 
 //STATUS GET REQUEST Liefert ein Object mit allen Einträgen der Status Datenbank
@@ -216,7 +219,7 @@ app.post('/api/Tasks', (req, res) => {
                 if (error) throw error;
                 console.log('TASKS ARRAY wurden modifiziert');
             });
-            
+
         } else {
             res.send(JSON.stringify({ message: 'NOT OK' }));
         }
