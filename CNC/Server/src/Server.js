@@ -63,6 +63,7 @@ var isTeamToken = function (token) {
     }
 };
 
+//Sucht die nächste freie Stelle im Task Array
 var searchFreePositionTask = function () {
 
     for (var i = 1; i < tasksArray.length; i++) {
@@ -199,7 +200,7 @@ app.post('/api/Tasks', (req, res) => {
             if (findID != undefined) {
                 //Modifiziert den Eintrag
                 tasksArray[tasksArray.indexOf(findID)] = req.body;
-                console.log('POST TASK modifiziert');
+                console.log('POST TASK ID modifiziert');
                 res.send(JSON.stringify({ message: 'OK' }));
             } else {
 
@@ -207,7 +208,7 @@ app.post('/api/Tasks', (req, res) => {
                     //Sucht den nächsten freien Eintrag und trägt ihn ein
                     req.body.id = searchFreePositionTask();
                     tasksArray.push(req.body);
-                    console.log('POST TASK neuer Eintrag');
+                    console.log('POST TASK ID erstellt');
                     res.send(JSON.stringify({ message: 'OK' }));
                 } else {
                     res.send(JSON.stringify({ message: 'NOT OK' }));
