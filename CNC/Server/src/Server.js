@@ -216,7 +216,7 @@ app.post('/api/Tasks', (req, res) => {
                 }
             } else {
                 req.body = counter;
-                req.body.data.output = 'null';
+                
                 counter++;
                 tasksArray.push(tempTask);
 
