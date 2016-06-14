@@ -192,8 +192,8 @@ app.post('/api/Tasks', (req, res) => {
 
             console.log('TASK Type ist gültig');
 
-            if (req.body.id != undefined) {
-                //Erstellt einen Task mit den übergebenen Wert
+            if (req.body.id < 0) {
+                //Erstellt einen Task mit den übergebenen Wert, wenn
                 var tempTask = {
                     id: req.body.id,
                     type: req.body.type,
