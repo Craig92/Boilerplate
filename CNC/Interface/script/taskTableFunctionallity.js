@@ -67,12 +67,12 @@ var sendTask = function (id, type, dataInput) {
         if (this.status == 200) {
             var entry = xhr.response;
             if (entry !== null && entry.message != "OK") {
-                alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' NICHT an den Server übermittelt.");
+                alert("Der Auftrag " + parseInt(id, 10) + " vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' NICHT an den Server übermittelt.");
             } else {
-                alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' an den Server übermittelt.");
+                alert("Der Auftrag " + parseInt(id, 10) + " vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' an den Server übermittelt.");
             }
         } else {
-            alert("Der Auftrag vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' NICHT an den Server übermittelt.");
+            alert("Der Auftrag " + parseInt(id, 10) + " vom Typ '" + type + "' wurde mit Input: ' " + dataInput + " ' NICHT an den Server übermittelt.");
         }
     };
 
