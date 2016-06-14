@@ -194,7 +194,7 @@ app.post('/api/Tasks', (req, res) => {
 
             if (req.body.input != '') {
                 console.log('p = ' + searchFreePositionTask(req));
-                if (searchFreePositionTask(req) != 0) {
+                if (searchFreePositionTask(req) != -1) {
                     tasksArray.forEach((object) => {
                         if (object.id == req.body.id) {
                             object.type = req.body.type;
