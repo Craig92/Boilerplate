@@ -76,9 +76,7 @@ var sendTask = function (id, type, dataInput) {
         }
     };
 
-    var data;
-
-    data = {
+    var data = {
         "id": parseInt(id, 10),
         "type": type,
         "data": {
