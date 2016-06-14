@@ -194,69 +194,28 @@ app.post('/api/Tasks', (req, res) => {
                 return object.id == req.body.id;
             });
 
-            //hat eine ID
-            if (findID !== null) {
-                //Erstellt einen Task mit den übergebenen Wert, wenn
-
+            if (findID !== undefined) {
                 var tempTask = {
                     id: req.body.id,
                     type: req.body.type,
                     data: {
                         input: req.body.data.input,
-                        output: ''
+                        output: req.body.data.output
                     }
                 };
-                tasksArray[req.body.id-1] = tempTask;
-                console.log('tempTask erstellt')
 
-                //hat keine ID
-            } else {
-                var temp = tasksArray.length + 2;
-                tasksArray.push(
-                    {
-                        id: temp,
-                        type: req.body.type,
-                        data: {
-                            input: req.body.data.input,
-                            output: req.body.data.output,
-                        }
+                for (var i = 0; i != tasksArray.length; i++) {
+                    if (tasksArray[i].id == req.body.id) {
+                        tasksArray[i] = tempTask;
                     }
-                );
-                console.log('POST TASK ID wurde erstellt');
+                }
+                console.log('POST TASK Vorhandener Task modifiziert');
+            } else {
+                req.id = ++tasksArray.length;
+                req.data.output = 'null';
+                tasksArray.push(req.body);
+                console('POST TASK Neuer Task erstellt');
             }
-
-
-
-
-
-            /*
-                        if (req.body.input != '') {
-                            console.log('p = ' + searchFreePositionTask(req));
-                            if (searchFreePositionTask(req) != -1) {
-                                tasksArray.forEach((object) => {
-                                    if (object.id == req.body.id) {
-                                        object.type = req.body.type;
-                                        object.data.input = req.body.data.input;
-                                        object.data.output = '';
-                                        console.log('POST TASK ID wurde modifiziert');
-                                    }
-                                });
-                            } else {
-                                //Fügt den neuen Eintrag ein
-                                var temp = tasksArray.length + 2;
-                                tasksArray.push(
-                                    {
-                                        id: temp,
-                                        type: req.body.type,
-                                        data: {
-                                            input: req.body.data.input,
-                                            output: req.body.data.output,
-                                        }
-                                    }
-                                );
-                                console.log('POST TASK ID wurde erstellt');
-                            }
-                            */
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
@@ -269,11 +228,6 @@ app.post('/api/Tasks', (req, res) => {
     } else {
         res.send(JSON.stringify({ message: 'NOT OK' }));
     }
-    /*
-} else {
-        res.send(JSON.stringify({ message: 'NOT OK' }));
-    }
-*/
 });
 
 //Löscht Eintrag in der Task, falls vorhanden.
@@ -288,7 +242,7 @@ app.delete('/api/Tasks/:id', (req, res) => {
             return object.id == req.body.id;
         });
 
-        if (findID !== null) {
+        if (findID !== undefined) {
 
             console.log('DELETE Gültige ID übergeben');
             tasksArray.slice(findID - 1, 1);
