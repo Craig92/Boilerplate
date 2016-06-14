@@ -189,29 +189,32 @@ app.post('/api/Tasks', (req, res) => {
 
         if (findType !== null) {
 
-            //Prüft, ob der übergebene Task eine ID hat
-            var findID = tasksArray.find(function (object) {
-                if(object.id != undefined){
-                return object.id == req.body.id;
-                }
-            });
+            if (req.body.id !== undefined) {
+                //Prüft, ob der übergebene Task eine ID hat
+                var findID = tasksArray.find(function (object) {
+                    return object.id == req.body.id;
+                });
 
-            if (findID !== undefined) {
-                var tempTask = {
-                    id: req.body.id,
-                    type: req.body.type,
-                    data: {
-                        input: req.body.data.input,
-                        output: req.body.data.output
-                    }
-                };
+                if (findID === undefined) {
+                    console.log('POST TASK ID nicht gefunden');
+                    res.send(JSON.stringify({ message: 'NOT OK' }));
+                } else {
+                    var tempTask = {
+                        id: req.body.id,
+                        type: req.body.type,
+                        data: {
+                            input: req.body.data.input,
+                            output: req.body.data.output
+                        }
+                    };
 
-                for (var i = 0; i != tasksArray.length; i++) {
-                    if (tasksArray[i].id == req.body.id) {
-                        tasksArray[i] = tempTask;
+                    for (var i = 0; i != tasksArray.length; i++) {
+                        if (tasksArray[i].id == req.body.id) {
+                            tasksArray[i] = tempTask;
+                        }
                     }
+                    console.log('POST TASK Vorhandener Task modifiziert');
                 }
-                console.log('POST TASK Vorhandener Task modifiziert');
             } else {
                 req.body.id = ++tasksArray.length;
                 req.body.data.output = null;
