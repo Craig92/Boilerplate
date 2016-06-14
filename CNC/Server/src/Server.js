@@ -226,36 +226,3 @@ app.post('/api/Tasks', (req, res) => {
         console.log('TASKS ARRAY wurden modifiziert');
     });
 });
-
-//Löscht Eintrag in der Task, falls vorhanden.
-app.delete('/api/Tasks/:id', (req, res) => {
-
-    var token = req.get('Token');
-
-    if (isTeamToken(token)) {
-
-        //Prüft, ob der übergebene Tasks eine gültige ID hat
-        var findID = tasksArray.find(function (object) {
-            return object.id == req.body.id;
-        });
-
-        if (findID !== undefined) {
-
-            console.log('DELETE Gültige ID übergeben');
-            tasksArray.slice(findID - 1, 1);
-
-            //Schreibt die Änderungen in die Datei
-            fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
-                if (error) throw error;
-                console.log('TASKS ARRAY wurden modifiziert');
-
-                res.send(JSON.stringify({ message: 'OK' }));
-            });
-        } else {
-            res.send(JSON.stringify({ message: 'NOT OK' }));
-        }
-
-    } else {
-        res.send(JSON.stringify({ message: 'NOT OK' }));
-    }
-});

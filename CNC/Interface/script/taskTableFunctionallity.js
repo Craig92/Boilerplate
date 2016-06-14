@@ -26,7 +26,7 @@ var initializeTask = function () {
                 code += '<td>' + entry.type + '</td>';
                 code += '<td>' + entry.data.input + '</td>';
                 code += '<td>' + entry.data.output + '</td>';
-                code += '<td><button class="status-button" id="' + entry.id + '" onClick="deleteTask(' + entry.id + ');"></button></td>';
+                code += '<td> Löschen </td>';
                 code += '</tr>';
             }
             content.innerHTML = code;
@@ -89,28 +89,3 @@ var sendTask = function (id, type, dataInput) {
     initializeTask();
 };
 
-/**
- * Senden an den Server den zu löschenden Task.
- */
-var deleteTask = function (id) {
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.open('DELETE', 'http://localhost:1337/api/Tasks/:id');
-    //    xhr.open('DELETE', 'http://botnet.artificial.engineering:8080/api/Tasks');
-    xhr.responseType = 'json';
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Token', '48ce10edb6c3377e7771370a4ab3569d');
-
-    xhr.onload = function () {
-        var entry = xhr.response;
-        if (entry !== null && entry.message != "OK") {
-            alert("Der Auftrag ID " + id + " wurde gelöscht");
-        } else {
-            alert("Der Auftrag ID " + id + " wurde NICHT gelöscht");
-        }
-    };
-
-    xhr.send(JSON.stringify(id));
-    initializeTask();
-};
