@@ -203,7 +203,7 @@ app.post('/api/Tasks', (req, res) => {
                 res.send(JSON.stringify({ message: 'OK' }));
             } else {
 
-                if (req.body.id === undefined) {
+                if (req.body.id !== undefined) {
                     //Sucht den nächsten freien Eintrag und trägt ihn ein
                     req.body.id = searchFreePositionTask();
                     tasksArray.push(req.body);
