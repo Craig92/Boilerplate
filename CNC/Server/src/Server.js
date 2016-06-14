@@ -191,7 +191,7 @@ app.post('/api/Tasks', (req, res) => {
         if (findType !== null) {
 
             console.log('TASK Type ist gültig');
-            if (req == null){
+            if (req === null){
                 console.log('NUll übergeben');
             } else {
                 console.log('kein NUll');
@@ -226,7 +226,7 @@ app.post('/api/Tasks', (req, res) => {
                 req.body.id = counter;
                 console.log('tempTask wurde eingefügt')
                 counter++;
-                tasksArray.push(tempTask);
+                tasksArray.push(req);
 
             }
             /*
