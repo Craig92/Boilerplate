@@ -191,7 +191,9 @@ app.post('/api/Tasks', (req, res) => {
 
             //Prüft, ob der übergebene Task eine ID hat
             var findID = tasksArray.find(function (object) {
+                if(object.id != undefined){
                 return object.id == req.body.id;
+                }
             });
 
             if (findID !== undefined) {
