@@ -188,7 +188,7 @@ app.post('/api/Tasks', (req, res) => {
         });
 
         if (findType !== null) {
-        console.log(req.body.data.input);
+        console.log(req.params.id);
             if (parseInt(req.body.id, 10) > 0) {
                 //Erstellt einen Task mit den übergebenen Wert, wenn
                 var tempTask = {
