@@ -211,8 +211,8 @@ app.post('/api/Tasks', (req, res) => {
                 }
                 console.log('POST TASK Vorhandener Task modifiziert');
             } else {
-                req.id = ++tasksArray.length;
-                req.data.output = 'null';
+                req.body.id = ++tasksArray.length;
+                req.body.data.output = null;
                 tasksArray.push(req.body);
                 console('POST TASK Neuer Task erstellt');
             }
