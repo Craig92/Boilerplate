@@ -187,41 +187,28 @@ app.post('/api/Tasks', (req, res) => {
             return object.type == req.body.type;
         });
 
-        if (findType !== null) {
+        if (findType != undefined) {
 
-            if (req.body.id !== undefined) {
-                //Prüft, ob der übergebene Task eine ID hat
-                var findID = tasksArray.find(function (object) {
-                    return object.id == req.body.id;
-                });
+            var findID = tasksArray.find(function (object) {
+                return object.id == req.body.id;
+            });
 
-                if (findID === undefined) {
-                    console.log('POST TASK ID nicht gefunden');
-                    res.send(JSON.stringify({ message: 'NOT OK' }));
-                    return;
-                } else {
-                    var tempTask = {
-                        id: req.body.id,
-                        type: req.body.type,
-                        data: {
-                            input: req.body.data.input,
-                            output: req.body.data.output
-                        }
-                    };
-
-                    for (var i = 0; i != tasksArray.length; i++) {
-                        if (tasksArray[i].id == req.body.id) {
-                            tasksArray[i] = tempTask;
-                        }
-                    }
-                    console.log('POST TASK Vorhandener Task modifiziert');
-                }
+            if (findID != undefined) {
+                //Modifiziert den Eintrag
+                tasksArray[tasksArray.indexOf(findID)] = req.body;
+                console.log('POST TASK modifiziert');
             } else {
-                req.body.id = ++tasksArray.length;
-                req.body.data.output = null;
-                tasksArray.push(req.body);
-                console.log('POST TASK Neuer Task erstellt');
+
+                if (req.body.id === undefined) {
+                    //Sucht den nächsten freien Eintrag und trägt ihn ein
+                    req.body.id = searchFreePositionTask();
+                    tasksArray.push(req.body);
+                    console.log('POST TASK neuer Eintrag');
+                } else {
+                    res.send(JSON.stringify({ message: 'NOT OK' }));
+                }
             }
+
             //Schreibt die Änderungen in die Datei
             fs.writeFile('./ServerTasks.txt', JSON.stringify(tasksArray), function (error) {
                 if (error) throw error;
