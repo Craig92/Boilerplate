@@ -190,7 +190,7 @@ app.post('/api/Tasks', (req, res) => {
 
         if (findType !== null) {
 
-            if (req.body.id < 0) {
+            if (req.body.id > 0) {
                 //Erstellt einen Task mit den übergebenen Wert, wenn
                 var tempTask = {
                     id: req.body.id,
@@ -217,9 +217,8 @@ app.post('/api/Tasks', (req, res) => {
 
                 }
             } else {
-                req.body.id = counter;
+                req.body.id = ++counter;
                 console.log('tempTask wurde eingefügt')
-                counter++;
                 tasksArray.push(req.body);
 
             }
