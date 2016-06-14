@@ -188,7 +188,7 @@ app.post('/api/Tasks', (req, res) => {
         });
 
         //Prüft, ob der übergebene Status eine gültige ID hat
-        var findID = statusArray.find(function (object) {
+        var findID = tasksArray.find(function (object) {
             return object.id == req.body.id;;
         });
 
