@@ -192,13 +192,14 @@ app.post('/api/Tasks', (req, res) => {
 
             console.log('TASK Type ist gültig');
 
-            if (req.id !== undefined) {
+            if (req.id != undefined) {
+                //Erstellt einen Task mit den übergebenen Wert
                 var tempTask = {
                     id: req.body.id,
                     type: req.body.type,
                     data: {
                         input: req.body.data.input,
-                        output: req.body.data.output
+                        output: ''
                     }
                 };
 
@@ -216,7 +217,7 @@ app.post('/api/Tasks', (req, res) => {
 
                 }
             } else {
-                req.body = counter;
+                req.body.id = counter;
                 
                 counter++;
                 tasksArray.push(tempTask);
