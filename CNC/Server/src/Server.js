@@ -202,9 +202,11 @@ app.post('/api/Tasks', (req, res) => {
                         output: ''
                     }
                 };
+                console.log('tempTask erstellt')
 
                 if (tempTask == null) {
                     res.send(JSON.stringify({ message: 'NOT OK' }));
+                    console.log('tempTask ist ist null')
                 } else {
                     for (var i = 0; i < tasksArray.length; i++) {
                         //console.log('Array ' + tasksArray[i].body.id +' ID '+ req.params.id);
@@ -218,7 +220,7 @@ app.post('/api/Tasks', (req, res) => {
                 }
             } else {
                 req.body.id = counter;
-                
+                console.log('tempTask wurde eingefügt')
                 counter++;
                 tasksArray.push(tempTask);
 
